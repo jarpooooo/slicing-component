@@ -1,6 +1,7 @@
 import Image from "next/image";
 
-import { Button, Container, EyebrowLabel, SectionIntro } from "@/components/ui";
+import { CommunityInvitation } from "@/components/sections";
+import { Button, Container, SectionIntro } from "@/components/ui";
 import { assets } from "@/lib/assets";
 
 import {
@@ -94,31 +95,8 @@ export function BuildAndBelongSection() {
         </Container>
       </section>
 
-      {/* Community invitation (14:16456): 1248px panel, 48px padding */}
-      <section aria-labelledby="invitation-heading">
-        <Container className="py-12 lg:py-16">
-          <div className="flex flex-col gap-10 rounded-card bg-surface-accent p-6 md:p-12 lg:flex-row lg:items-center lg:justify-between">
-            <div className="flex max-w-211 flex-col items-start gap-4">
-              <EyebrowLabel tone="blue">{invitationContent.eyebrow}</EyebrowLabel>
-              <h2
-                id="invitation-heading"
-                className="text-heading-sm font-bold text-balance text-fg md:text-heading-md"
-              >
-                {invitationContent.heading}
-              </h2>
-              <p className="text-body-md text-fg-muted">{invitationContent.description}</p>
-            </div>
-            <div className="flex shrink-0 flex-col items-start gap-4">
-              <Button href={invitationContent.primaryAction.href} withArrow>
-                {invitationContent.primaryAction.label}
-              </Button>
-              <Button href={invitationContent.secondaryAction.href} variant="link" withArrow>
-                {invitationContent.secondaryAction.label}
-              </Button>
-            </div>
-          </div>
-        </Container>
-      </section>
+      {/* Community invitation (14:16456) — shared with About/Overview */}
+      <CommunityInvitation headingId="invitation-heading" {...invitationContent} />
     </>
   );
 }
