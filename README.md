@@ -6,12 +6,12 @@ GDGoC UGM Figma design into a responsive web app and consume the
 
 - **Design:** Figma file `3ZBkhvV8tXj90xxro7LhTC`, page "Design System" (desktop 1440px)
 - **Live demo:** TODO (Vercel URL)
-- **Pages implemented:** Landing (copy partly provisional, see `TODO(copy)` in `src/features/landing/data.ts`); second page TODO
+- **Pages implemented:** Landing and About (copy partly provisional — see `TODO(copy)` in `src/features/*/data.ts`)
 
 | Page     | Route       | Figma node | Status                  |
 | -------- | ----------- | ---------- | ----------------------- |
 | Landing  | `/`         | 14:16047   | ✅ built (copy pending) |
-| About    | `/about`    | 14:16510   | 🚧 placeholder          |
+| About    | `/about`    | 14:16510   | ✅ built (copy pending) |
 | Overview | `/overview` | 14:16894   | 🚧 placeholder          |
 | Contact  | `/contact`  | 14:16727   | 🚧 placeholder          |
 
@@ -71,6 +71,7 @@ src/
   components/
     ui/                 # Design-system primitives: Button, Card, Chip, Container, EyebrowLabel, Section
     layout/             # Navigation, Footer
+    sections/           # Cross-page sections (CommunityInvitation)
     states/             # LoadingSkeleton, ErrorState, EmptyState, AsyncContent
   features/             # Page-specific sections + hooks, one folder per page
   hooks/                # Shared hooks (useApi)

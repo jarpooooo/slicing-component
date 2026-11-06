@@ -44,12 +44,7 @@ its width/height no longer match the SVG root. It also lists files that aren't r
 | `trackResearch`    | `images/track-research.svg`       | Track card: Research & discovery        | 14:16239   |
 | `trackDesign`      | `images/track-design.svg`         | Track card: Design & creativity         | 14:16274   |
 | `trackDevelopment` | `images/track-development.svg`    | Track card: Development                 | 14:16311   |
+| `aboutHeroArtwork` | `images/about-hero-artwork.svg`   | About hero artwork                      | 14:16529   |
+| `sparkYellow`      | `icons/spark-yellow.svg`          | About → Community commitment            | 14:16668   |
 
 UI icons (arrows, chevrons, menu, format icons) come from `lucide-react`, not from files.
-
-### Not exported yet
-
-| File                              | Used in                    | Figma node |
-| --------------------------------- | -------------------------- | ---------- |
-| `images/spark-yellow.svg`         | "Commitment" spark (About) | TBD        |
-| `images/about-community-mark.svg` | About page community mark  | 14:16537   |
