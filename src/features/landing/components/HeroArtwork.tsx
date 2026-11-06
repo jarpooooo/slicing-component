@@ -12,10 +12,11 @@ import { heroContent } from "../data";
  * but in percentages of the 620×530 frame, so the whole composition scales
  * with its container instead of being fixed to desktop pixels.
  *
- * The exported SVGs include their glow/blur bleed, so each one is larger than
- * its Figma instance; positions below center each SVG on its instance center:
- *   research    instance 243px @ (18, 2)   → SVG 384×421 centered at (139, 123)
- *   development instance 393px @ (186, 85) → SVG 650×696 centered at (382, 281)
+ * The exported SVGs include a drop-shadow/glow that bleeds down and left, so the
+ * visible tile sits near the top-right of each SVG. Positions align the tile
+ * center (measured in the SVG) with the Figma instance center:
+ *   research    tile center (260, 126) in SVG → instance center (139, 123)
+ *   development tile center (435, 207) in SVG → instance center (382, 281)
  */
 export function HeroArtwork({ className }: { className?: string }) {
   return (
@@ -25,13 +26,13 @@ export function HeroArtwork({ className }: { className?: string }) {
         {...assets.heroResearch}
         alt=""
         priority
-        className="absolute top-[-16.4%] left-[-8.5%] h-auto w-[61.9%] max-w-none"
+        className="absolute top-[-0.5%] left-[-19.5%] h-auto w-[61.9%] max-w-none"
       />
       <Image
         {...assets.heroDevelopment}
         alt=""
         priority
-        className="absolute top-[-12.6%] left-[9.3%] h-auto w-[104.8%] max-w-none"
+        className="absolute top-[14%] left-[-8.5%] h-auto w-[104.8%] max-w-none"
       />
 
       {/* Learning sticker (14:16090) — 252×87 @ (24, 356), slightly rotated */}

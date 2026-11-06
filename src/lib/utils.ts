@@ -37,3 +37,9 @@ const twMerge = extendTailwindMerge({
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+/** "join-a-group" → "Join a group" (for slugs returned by the API). */
+export function humanizeSlug(slug: string) {
+  const text = slug.replace(/[-_]+/g, " ").trim();
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}

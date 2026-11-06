@@ -51,10 +51,7 @@ export function HeroSection() {
           </p>
         </div>
 
-        {/* Below lg the research artwork bleeds ~16% above its frame; pad so it can't cover the copy. */}
-        <div className="pt-[14%] lg:pt-0">
-          <HeroArtwork className="mx-auto lg:mx-0 lg:ml-auto" />
-        </div>
+        <HeroArtwork className="mx-auto lg:mx-0 lg:ml-auto" />
       </Container>
 
       {/* Community promise (14:16193) */}
