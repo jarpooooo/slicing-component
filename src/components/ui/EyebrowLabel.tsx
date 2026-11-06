@@ -2,9 +2,10 @@ import type { ComponentPropsWithoutRef } from "react";
 
 import { cn } from "@/lib/utils";
 
-type Tone = "blue" | "red" | "yellow" | "green";
+export type BrandTone = "blue" | "red" | "yellow" | "green";
 
-const markerTone: Record<Tone, string> = {
+/** Background class per brand tone — shared by markers, dots and accents. */
+export const brandToneBg: Record<BrandTone, string> = {
   blue: "bg-brand-blue",
   red: "bg-brand-red",
   yellow: "bg-brand-yellow",
@@ -12,27 +13,26 @@ const markerTone: Record<Tone, string> = {
 };
 
 type EyebrowLabelProps = ComponentPropsWithoutRef<"p"> & {
-  tone?: Tone;
+  tone?: BrandTone;
 };
 
 /**
  * "Section label" from Figma (e.g. 14:16068): a 7px round marker, 10px gap, then
- * an uppercase label.
+ * an uppercase label in a 15px line box.
  *
- * TODO(figma): confirm the label font size/color and the marker color per
- * section — those nodes were not read before the MCP rate limit. Uses the
- * overline token for now.
+ * TODO(figma): confirm label color and per-section marker color (geometry only
+ * was available).
  */
 export function EyebrowLabel({ tone = "blue", className, children, ...props }: EyebrowLabelProps) {
   return (
     <p
       className={cn(
-        "inline-flex items-center gap-2.5 text-overline font-medium text-fg-muted uppercase",
+        "inline-flex items-center gap-2.5 text-eyebrow font-medium tracking-wide text-fg-muted uppercase",
         className,
       )}
       {...props}
     >
-      <span aria-hidden className={cn("size-1.75 shrink-0 rounded-full", markerTone[tone])} />
+      <span aria-hidden className={cn("size-1.75 shrink-0 rounded-full", brandToneBg[tone])} />
       {children}
     </p>
   );

@@ -4,7 +4,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
-type ButtonVariant = "primary" | "link";
+type ButtonVariant = "primary" | "secondary" | "link";
 
 /**
  * Variant styles from Figma:
@@ -12,11 +12,14 @@ type ButtonVariant = "primary" | "link";
  *   16px gap, 8px radius, 16px Medium white label, 20px arrow.
  * - link: "Text link" (14:16268) — 16px Medium link-blue label, 12px gap, 20px arrow.
  *
- * TODO(figma): the secondary hero action (14:16078) was not inspected yet.
+ * - secondary: hero second action (14:16078) — same geometry as primary; fill/border not
+ *   inspected (Figma rate limit), rendered as an outlined neutral button. TODO(figma): verify.
  */
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
     "h-control-h gap-4 rounded-control border border-transparent bg-primary px-6 text-primary-fg hover:bg-blue-700",
+  secondary:
+    "h-control-h gap-4 rounded-control border border-border bg-surface px-6 text-fg hover:bg-surface-muted",
   link: "gap-3 text-link hover:underline",
 };
 
