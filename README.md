@@ -6,14 +6,14 @@ GDGoC UGM Figma design into a responsive web app and consume the
 
 - **Design:** Figma file `3ZBkhvV8tXj90xxro7LhTC`, page "Design System" (desktop 1440px)
 - **Live demo:** TODO (Vercel URL)
-- **Pages implemented:** TODO (pick at least 2 of Landing, About, Overview, Contact)
+- **Pages implemented:** Landing (copy partly provisional, see `TODO(copy)` in `src/features/landing/data.ts`); second page TODO
 
-| Page     | Route       | Figma node | Status         |
-| -------- | ----------- | ---------- | -------------- |
-| Landing  | `/`         | 14:16047   | 🚧 placeholder |
-| About    | `/about`    | 14:16510   | 🚧 placeholder |
-| Overview | `/overview` | 14:16894   | 🚧 placeholder |
-| Contact  | `/contact`  | 14:16727   | 🚧 placeholder |
+| Page     | Route       | Figma node | Status                  |
+| -------- | ----------- | ---------- | ----------------------- |
+| Landing  | `/`         | 14:16047   | ✅ built (copy pending) |
+| About    | `/about`    | 14:16510   | 🚧 placeholder          |
+| Overview | `/overview` | 14:16894   | 🚧 placeholder          |
+| Contact  | `/contact`  | 14:16727   | 🚧 placeholder          |
 
 ## Tech stack
 
