@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react";
 import { useId, useState, type KeyboardEvent } from "react";
 
 import { Button } from "@/components/ui";
+import { assets } from "@/lib/assets";
 import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -80,10 +81,8 @@ export function Navigation() {
           className="shrink-0 rounded-control focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
         >
           <Image
-            src="/icons/logo-gdgoc-ugm.svg"
+            {...assets.logo}
             alt={`${siteConfig.name} — ${siteConfig.fullName}`}
-            width={346}
-            height={39}
             priority
             className="h-7 w-auto md:h-8 xl:h-9.75"
           />

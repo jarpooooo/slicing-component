@@ -1,40 +1,55 @@
 # Assets
 
 Assets are exported **manually** from Figma (file `3ZBkhvV8tXj90xxro7LhTC`, page "Design System")
-and committed here. No placeholders are generated — a missing file below simply means it has not
-been exported yet.
+as **SVG** and committed here. No placeholders are generated.
 
-Reference them from code with absolute paths, e.g. `src="/icons/logo-gdgoc-ugm.svg"`.
+## How assets are referenced
+
+Components never hard-code asset paths. Every file is registered once in
+[`src/lib/assets.ts`](../src/lib/assets.ts) with its path and intrinsic size:
+
+```tsx
+import { assets } from "@/lib/assets";
+
+<Image {...assets.logo} alt="GDGoC UGM" />;
+```
+
+**Renaming or adding a file:** update `src/lib/assets.ts`, then run
+
+```bash
+npm run check:assets
+```
+
+The check (also run automatically before `npm run build`) fails when a registered file is missing,
+when its **letter case** differs from the file on disk (Windows doesn't care, Vercel does), or when
+its width/height no longer match the SVG root. It also lists files that aren't registered yet.
 
 ## Export settings
 
-- **SVG**: export as SVG, keep the root `width`/`height` attributes (do not strip them).
-- **PNG**: export at **2x** for crisp rendering on high-DPI screens; `next/image` scales them down.
+- Export as **SVG** and keep the root `width`/`height` attributes; `assets.ts` mirrors them.
+- `next/image` serves `.svg` files unoptimized automatically.
 
-## Icons — `public/icons/`
+## Inventory
 
-| File                 | Used in                                         | Figma node          | Status     |
-| -------------------- | ----------------------------------------------- | ------------------- | ---------- |
-| `logo-gdgoc-ugm.svg` | Navigation + Footer logo ("GDGoC UGM identity") | 14:16049 / 14:16476 | ⬜ missing |
-| `instagram.svg`      | Footer → Social channels                        | 14:16490            | ⬜ missing |
-| `youtube.svg`        | Footer → Social channels                        | 14:16495            | ⬜ missing |
-| `spark-green.svg`    | "Community" spark (Landing → Belonging)         | 14:16420            | ⬜ missing |
-| `spark-yellow.svg`   | "Commitment" spark                              | TBD                 | ⬜ missing |
+| Key in `assets.ts` | File                              | Used in                                 | Figma node |
+| ------------------ | --------------------------------- | --------------------------------------- | ---------- |
+| `logo`             | `icons/logo-gdgoc-ugm.svg`        | Navigation                              | 14:16049   |
+| `logoFooter`       | `icons/logo-gdgoc-ugm-footer.svg` | Footer                                  | 14:16476   |
+| `instagram`        | `icons/Instagram.svg`             | Footer → Social channels                | 14:16490   |
+| `youtube`          | `icons/YouTube.svg`               | Footer → Social channels                | 14:16495   |
+| `sparkGreen`       | `images/spark-green.svg`          | Landing → Belonging ("Community spark") | 14:16420   |
+| `heroGlassBg`      | `images/hero-glass-bg.svg`        | Landing hero, glass tile background     | 14:16130   |
+| `heroResearch`     | `images/hero-research.svg`        | Landing hero, research artwork          | 14:16107   |
+| `heroDevelopment`  | `images/hero-development.svg`     | Landing hero, development artwork       | 14:16095   |
+| `trackResearch`    | `images/track-research.svg`       | Track card: Research & discovery        | 14:16239   |
+| `trackDesign`      | `images/track-design.svg`         | Track card: Design & creativity         | 14:16274   |
+| `trackDevelopment` | `images/track-development.svg`    | Track card: Development                 | 14:16311   |
 
-> The logo node is one instance used at two sizes (nav 345×39, footer 382×43); export once
-> as SVG and size it in code.
->
-> UI icons such as the arrow in actions/links and the FAQ disclosure chevron use
-> `lucide-react` instead of exported files.
+UI icons (arrows, chevrons, menu, format icons) come from `lucide-react`, not from files.
 
-## Images — `public/images/`
+### Not exported yet
 
-| File                             | Used in                                        | Figma node | Status     |
-| -------------------------------- | ---------------------------------------------- | ---------- | ---------- |
-| `hero-ideas-coming-together.png` | Landing hero artwork ("Ideas coming together") | 14:16089   | ⬜ missing |
-| `track-research.png`             | Track card — Research & Discovery              | 14:16239   | ⬜ missing |
-| `track-design.png`               | Track card — Design & Creativity               | 14:16274   | ⬜ missing |
-| `track-development.png`          | Track card — Development                       | 14:16311   | ⬜ missing |
-| `about-community-mark.png`       | About page community mark                      | 14:16537   | ⬜ missing |
-
-When adding a file, flip its status to ✅.
+| File                              | Used in                    | Figma node |
+| --------------------------------- | -------------------------- | ---------- |
+| `images/spark-yellow.svg`         | "Commitment" spark (About) | TBD        |
+| `images/about-community-mark.svg` | About page community mark  | 14:16537   |

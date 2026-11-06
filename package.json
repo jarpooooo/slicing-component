@@ -10,7 +10,9 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typecheck": "next typegen && tsc --noEmit"
+    "typecheck": "next typegen && tsc --noEmit",
+    "check:assets": "node scripts/check-assets.mjs",
+    "prebuild": "node scripts/check-assets.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

@@ -39,16 +39,17 @@ npm run dev                  # http://localhost:3000
 
 ### Scripts
 
-| Script                 | Description                                       |
-| ---------------------- | ------------------------------------------------- |
-| `npm run dev`          | Start the dev server                              |
-| `npm run build`        | Production build                                  |
-| `npm run start`        | Serve the production build                        |
-| `npm run lint`         | ESLint                                            |
-| `npm run lint:fix`     | ESLint with autofix                               |
-| `npm run format`       | Format everything with Prettier                   |
-| `npm run format:check` | Check formatting (CI)                             |
-| `npm run typecheck`    | Generate Next.js route types, then `tsc --noEmit` |
+| Script                 | Description                                                                     |
+| ---------------------- | ------------------------------------------------------------------------------- |
+| `npm run dev`          | Start the dev server                                                            |
+| `npm run build`        | Production build                                                                |
+| `npm run start`        | Serve the production build                                                      |
+| `npm run lint`         | ESLint                                                                          |
+| `npm run lint:fix`     | ESLint with autofix                                                             |
+| `npm run format`       | Format everything with Prettier                                                 |
+| `npm run format:check` | Check formatting (CI)                                                           |
+| `npm run typecheck`    | Generate Next.js route types, then `tsc --noEmit`                               |
+| `npm run check:assets` | Verify files in `src/lib/assets.ts` exist with exact casing (runs before build) |
 
 ### Environment variables
 
@@ -75,6 +76,7 @@ src/
   hooks/                # Shared hooks (useApi)
   lib/
     api/                # Typed API client + response types
+    assets.ts           # Registry of /public assets (paths + sizes)
     site.ts             # Site config (name, nav links, metadata)
     utils.ts            # cn() helper
 public/
