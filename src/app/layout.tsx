@@ -13,6 +13,10 @@ const googleSans = Google_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   display: "swap",
+  // Next.js has no metric overrides for Google Sans, so declare the fallback
+  // stack explicitly instead of letting it try (and warn) to generate one.
+  fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {
