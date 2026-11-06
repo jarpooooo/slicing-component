@@ -121,8 +121,8 @@ export const journeyContent = {
   heading: "From curious to contributing, one step at a time", // TODO(copy)
 } as const;
 
-/** Number color per journey step (cycles through brand tones). */
-export const journeyTones: BrandTone[] = ["blue", "red", "yellow", "green"];
+/** Number color per journey step. Yellow is skipped: Yellow/500 on white fails 3:1 contrast. */
+export const journeyTones: BrandTone[] = ["blue", "red", "green"];
 
 export const belongingContent = {
   heading: "Different majors and different starting points — that's the point.", // [api] /faqs

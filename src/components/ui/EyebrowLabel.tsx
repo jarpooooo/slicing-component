@@ -12,6 +12,14 @@ export const brandToneBg: Record<BrandTone, string> = {
   green: "bg-brand-green",
 };
 
+/** Text color per brand tone. Yellow/500 on white is ~1.9:1 — avoid it for text. */
+export const brandToneText: Record<BrandTone, string> = {
+  blue: "text-brand-blue",
+  red: "text-brand-red",
+  yellow: "text-brand-yellow",
+  green: "text-brand-green",
+};
+
 type EyebrowLabelProps = ComponentPropsWithoutRef<"p"> & {
   tone?: BrandTone;
 };

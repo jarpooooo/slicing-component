@@ -1,4 +1,4 @@
-import { DiscoverLearningSection, HeroSection } from "@/features/landing";
+import { BuildAndBelongSection, DiscoverLearningSection, HeroSection } from "@/features/landing";
 
 /**
  * Landing page (Figma 14:16047). Navigation and Footer come from the root layout.
@@ -8,6 +8,7 @@ export default function LandingPage() {
     <>
       <HeroSection />
       <DiscoverLearningSection />
+      <BuildAndBelongSection />
     </>
   );
 }
