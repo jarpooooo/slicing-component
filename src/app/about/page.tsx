@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
 
-import { AboutHero } from "@/features/about";
+import { CommunityInvitation } from "@/components/sections";
+import {
+  AboutHero,
+  aboutInvitationContent,
+  CommunityCommitment,
+  CommunityValues,
+  OurPurpose,
+  WaysToBelong,
+} from "@/features/about";
 
 export const metadata: Metadata = {
   title: "About",
@@ -10,5 +18,14 @@ export const metadata: Metadata = {
 
 /** About page (Figma 14:16510). Navigation and Footer come from the root layout. */
 export default function AboutPage() {
-  return <AboutHero />;
+  return (
+    <>
+      <AboutHero />
+      <OurPurpose />
+      <CommunityValues />
+      <WaysToBelong />
+      <CommunityCommitment />
+      <CommunityInvitation headingId="about-invitation-heading" {...aboutInvitationContent} />
+    </>
+  );
 }
