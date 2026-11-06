@@ -1,26 +1,144 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Design tokens — source: Figma file 3ZBkhvV8tXj90xxro7LhTC, page "Design System",
+ * frame "Landing - GDGoC UGM" (14:16047), desktop 1440px.
+ *
+ * Provenance tags used below:
+ *   [var]  = Figma variable (get_variable_defs)
+ *   [node] = value applied directly on a Figma node, no variable bound
+ *            (Navigation 14:16048, Track card 14:16237)
+ *
+ * Components must use these tokens (bg-primary, text-fg-muted, rounded-card, ...)
+ * and never raw hex values or arbitrary sizes that duplicate a token.
+ */
+
+@theme {
+  /* Reset Tailwind's default palette so only design tokens are available. */
+  --color-*: initial;
+
+  /* ---------- Palette ---------- */
+  --color-blue-50: #eaf2ff; /* [node] active nav item / track illustration bg */
+  --color-blue-300: #8ab4f8; /* [var] Blue/300 */
+  --color-blue-500: #4284f4; /* [var] Blue/500 */
+  --color-blue-700: #1967d2; /* [node] link + active nav text, overline */
+
+  --color-red-500: #ea4335; /* [var] Red/500 */
+
+  --color-yellow-300: #fde293; /* [var] Yellow/300 */
+  --color-yellow-500: #f9ab00; /* [var] Yellow/500 */
+
+  --color-green-500: #34a853; /* [var] Green/500 */
+
+  --color-neutral-100: #ffffff; /* [var] Neutral colors/100 */
+  --color-neutral-300: #f1f3f4; /* [var] Neutrals/300 */
+  --color-neutral-400: #dadce0; /* [node] borders, dividers */
+  --color-neutral-700: #5f6368; /* [node] body / secondary text */
+  --color-neutral-900: #242424; /* [node] headings */
+
+  /* ---------- Semantic aliases (use these in components) ---------- */
+  --color-surface: var(--color-neutral-100);
+  --color-surface-muted: var(--color-neutral-300);
+  --color-surface-accent: var(--color-blue-50);
+
+  --color-border: var(--color-neutral-400);
+
+  --color-fg: var(--color-neutral-900);
+  --color-fg-muted: var(--color-neutral-700);
+  --color-fg-inverse: var(--color-neutral-100);
+
+  --color-primary: var(--color-blue-500);
+  --color-primary-fg: var(--color-neutral-100);
+  --color-link: var(--color-blue-700);
+
+  /* Google brand accents (dots, markers, track colors) */
+  --color-brand-blue: var(--color-blue-500);
+  --color-brand-red: var(--color-red-500);
+  --color-brand-yellow: var(--color-yellow-500);
+  --color-brand-green: var(--color-green-500);
+
+  /*
+   * TODO(figma): gradients "Gradient/Blue 1", "Gradient/Green 1", "Gradient/Yellow 1"
+   * exist as Figma variables but the MCP returned empty values, and the Figma MCP
+   * rate limit was hit before the nodes using them could be inspected.
+   * Add them here as --gradient-blue-1 / --gradient-green-1 / --gradient-yellow-1
+   * once read from Figma. Do NOT invent stops.
+   */
+
+  /* ---------- Typography ---------- */
+  /* Figma font: "Google Sans" (Regular 400 / Medium 500 / Bold 700), loaded via next/font. */
+  --font-sans: var(--font-google-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  /* [node] Track card "Track theme": 11px Medium, uppercase */
+  --text-overline: 11px;
+  --text-overline--line-height: normal;
+
+  /* [node] Track card "Topics": 13px Regular, lh 1.5 */
+  --text-caption: 13px;
+  --text-caption--line-height: 1.5;
+
+  /* [node] Nav item, button label, text link: 16px, lh normal */
+  --text-label: 16px;
+  --text-label--line-height: normal;
+
+  /* [node] Track card "Description": 16px Regular, lh 1.55 */
+  --text-body: 16px;
+  --text-body--line-height: 1.55;
+
+  /* [node] Track card "Heading": 28px Bold, lh 1.12 */
+  --text-heading-sm: 28px;
+  --text-heading-sm--line-height: 1.12;
+
+  /*
+   * TODO(figma): hero headline (14:16071), section headings (14:16209, 14:16230, ...),
+   * large body text (14:16072, 14:16215), section label (14:16070) and journey step
+   * numbers (14:16405) were not read before the MCP rate limit. Add
+   * --text-display / --text-heading-lg / --text-heading-md / --text-body-lg here.
+   */
+
+  /* ---------- Radius ---------- */
+  --radius-*: initial;
+  --radius-control: 8px; /* [node] primary action button */
+  --radius-card: 24px; /* [node] track card */
+  --radius-pill: 100px; /* [node] nav item */
+
+  /* ---------- Shadows ---------- */
+  /* TODO(figma): no shadow values were found on the nodes inspected so far. */
+
+  /* ---------- Layout / spacing ---------- */
+  /* Spacing scale: Tailwind default (4px step). All observed Figma gaps/paddings
+     (8, 12, 14, 16, 18, 20, 24, 28, 32, 48, 64, 96) map onto it. */
+  --spacing-nav-x: 64px; /* [node] navigation horizontal padding */
+  --spacing-page-x: 96px; /* [node] section content inset (1440 - 1248) / 2 */
+  --spacing-nav-h: 104px; /* [node] navigation height */
+  --spacing-control-h: 52px; /* [node] primary action height */
+  --container-content: 1248px; /* [node] content width inside 1440 frame */
+
+  /* ---------- Breakpoints ----------
+   * Design source is desktop 1440px; styles are authored mobile-first:
+   *   base  < 640px   mobile
+   *   sm   >= 640px   large mobile
+   *   md   >= 768px   tablet
+   *   lg   >= 1024px  desktop
+   *   xl   >= 1440px  design-width desktop (Figma frame)
+   */
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 90rem;
+  --breakpoint-2xl: initial;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    @apply scroll-smooth;
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    @apply bg-surface font-sans text-body text-fg antialiased;
+  }
 }
