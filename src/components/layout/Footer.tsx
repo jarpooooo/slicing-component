@@ -1,31 +1,56 @@
+import Image from "next/image";
 import Link from "next/link";
 
-import { Container } from "@/components/ui";
+import { brandToneBg, Container, type BrandTone } from "@/components/ui";
+import { assets, type AssetName } from "@/lib/assets";
 import { siteConfig } from "@/lib/site";
+import { cn } from "@/lib/utils";
+
+const brandSignature: BrandTone[] = ["blue", "red", "yellow", "green"];
+
+const socialChannels: { label: string; icon: AssetName; href: string | null }[] = [
+  { label: "Instagram", icon: "instagram", href: siteConfig.social.instagram },
+  { label: "YouTube", icon: "youtube", href: siteConfig.social.youtube },
+];
+
+const linkClass =
+  "rounded-control text-label font-regular text-fg-muted transition-colors hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
 
 /**
- * Site footer — structural skeleton following the Figma Footer (14:16473):
- * identity · "Explore" page links · "Connect" socials, then divider + footer note.
- *
- * TODO(component phase): logo, Instagram/YouTube icons (public/icons), social
- * handle from GET /api/stats, final copy and the brand signature bar.
+ * Site footer — Figma "Footer" (14:16473).
+ * Desktop: identity (480px) · Explore (150px) · Connect (260px) spread across
+ * 1248px, then divider, footer note and the four-color brand signature.
+ * Tablet: identity on top, link groups side by side. Mobile: single column.
  */
 export function Footer() {
+  const { footer, social } = siteConfig;
+
   return (
     <footer className="border-t border-border bg-surface">
-      <Container className="flex flex-col gap-10 py-14">
-        <div className="flex flex-col gap-10 md:flex-row md:justify-between">
-          <div className="flex max-w-120 flex-col gap-4">
-            <p className="text-label font-bold text-fg">{siteConfig.name}</p>
-            <p className="text-body text-fg-muted">{siteConfig.fullName}</p>
+      <Container className="pt-14 pb-7">
+        <div className="grid gap-10 md:grid-cols-2 lg:flex lg:justify-between">
+          <div className="flex flex-col gap-6 md:col-span-2 lg:max-w-120">
+            <Link
+              href="/"
+              className="self-start rounded-control focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+            >
+              <Image
+                {...assets.logoFooter}
+                alt={`${siteConfig.name} — ${siteConfig.fullName}`}
+                className="h-9 w-auto md:h-10.75"
+              />
+            </Link>
+            <p className="text-body text-fg-muted">{footer.description}</p>
           </div>
 
-          <nav aria-label="Footer" className="flex flex-col gap-3">
-            <p className="text-label font-medium text-fg">Explore</p>
-            <ul className="flex flex-col gap-3">
+          <nav aria-labelledby="footer-explore" className="flex flex-col gap-3.5 lg:w-37.5">
+            <h2 id="footer-explore" className="text-label font-bold text-fg">
+              {footer.exploreTitle}
+            </h2>
+            <ul className="flex flex-col gap-3.5">
               {siteConfig.nav.map(({ label, href }) => (
                 <li key={href}>
-                  <Link href={href} className="text-body text-fg-muted hover:text-fg">
+                  <Link href={href} className={linkClass}>
                     {label}
                   </Link>
                 </li>
@@ -33,16 +58,49 @@ export function Footer() {
             </ul>
           </nav>
 
-          <div className="flex flex-col gap-3">
-            <p className="text-label font-medium text-fg">Connect</p>
-            {/* TODO: social handle + Instagram / YouTube links */}
+          <div className="flex flex-col gap-4 lg:w-65">
+            <h2 className="text-label font-bold text-fg">{footer.connectTitle}</h2>
+            <p className="text-body-md font-medium text-fg">{social.handle}</p>
+            <ul className="flex gap-4">
+              {socialChannels.map(({ label, icon, href }) => {
+                const image = <Image {...assets[icon]} alt="" className="size-6" />;
+                return (
+                  <li key={label}>
+                    {href ? (
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${label} (opens in a new tab)`}
+                        className="flex rounded-control transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                      >
+                        {image}
+                      </a>
+                    ) : (
+                      <span title={`${label} — coming soon`} className="flex">
+                        {image}
+                        <span className="sr-only">{label} — coming soon</span>
+                      </span>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+            <p className="text-small text-fg-muted">{footer.connectDescription}</p>
           </div>
         </div>
 
-        <div className="border-t border-border pt-10">
-          <p className="text-caption text-fg-muted">
-            {/* TODO: confirm copyright copy from Figma (14:16502) */}© {siteConfig.name}
-          </p>
+        <hr className="mt-10 border-border" />
+
+        <div className="mt-10 flex flex-col gap-2 text-eyebrow text-fg-muted md:flex-row md:justify-between">
+          <p>{footer.copyright}</p>
+          <p>{footer.note}</p>
+        </div>
+
+        <div aria-hidden className="mt-10 flex">
+          {brandSignature.map((tone) => (
+            <span key={tone} className={cn("h-1 w-10", brandToneBg[tone])} />
+          ))}
         </div>
       </Container>
     </footer>
