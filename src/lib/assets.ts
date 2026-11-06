@@ -21,6 +21,8 @@ export const assets = {
   trackResearch: { src: "/images/track-research.svg", width: 342, height: 443 },
   trackDesign: { src: "/images/track-design.svg", width: 337, height: 389 },
   trackDevelopment: { src: "/images/track-development.svg", width: 347, height: 452 },
+  aboutHeroArtwork: { src: "/images/about-hero-artwork.svg", width: 464, height: 400 },
+  sparkYellow: { src: "/icons/spark-yellow.svg", width: 72, height: 72 },
 } as const satisfies Record<string, StaticAsset>;
 
 export type StaticAsset = {

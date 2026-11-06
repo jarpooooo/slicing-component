@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
 
-import { Section } from "@/components/ui";
+import { AboutHero } from "@/features/about";
 
 export const metadata: Metadata = {
   title: "About",
+  description:
+    "Who we are: GDGoC Universitas Gadjah Mada is a student-led community to learn, build, and share technology together — our purpose, values, and ways to belong.",
 };
 
-/** Placeholder — sections from Figma node 14:16510 are built in the next phase. */
+/** About page (Figma 14:16510). Navigation and Footer come from the root layout. */
 export default function AboutPage() {
-  return (
-    <Section className="py-16">
-      <h1 className="text-heading-sm font-bold">About</h1>
-      <p className="mt-4 text-fg-muted">Page placeholder (Figma node 14:16510).</p>
-    </Section>
-  );
+  return <AboutHero />;
 }
