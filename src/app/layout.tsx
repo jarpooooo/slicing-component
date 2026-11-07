@@ -34,6 +34,7 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  icons: "/icons/logo-gdgoc.svg",
   applicationName: siteConfig.name,
   openGraph: {
     type: "website",
