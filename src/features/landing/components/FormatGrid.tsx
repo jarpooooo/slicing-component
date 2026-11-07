@@ -7,9 +7,9 @@ import { api } from "@/lib/api";
 import { FormatCard } from "./FormatCard";
 
 /**
- * Learning formats from GET /api/formats.
- * Figma shows 3 cards in a row; the API returns 4, so the desktop grid uses
- * 4 columns at xl (1440) and 2 columns from md.
+ * Learning formats from GET /api/formats, laid out like Figma "Program formats"
+ * (14:16340): equal-width cards, 24px gap. The API returns 4 formats (Figma shows 3),
+ * so the row holds 4 columns at the design width (xl) and 2 from tablet up.
  */
 export function FormatGrid() {
   const formats = useApi("formats", (signal) => api.getFormats({ signal }));

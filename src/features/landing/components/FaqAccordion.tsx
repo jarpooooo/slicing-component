@@ -8,17 +8,21 @@ import { api } from "@/lib/api";
 
 import { FaqItem } from "./FaqItem";
 
+/** Figma shows three expanded FAQ items. */
+const INITIALLY_OPEN = 3;
+
 /**
- * FAQ list from GET /api/faqs as an accessible accordion.
- * - Each item toggles independently; the first one starts open (the Figma
- *   frame shows answers expanded).
+ * Every question from GET /api/faqs as an accessible accordion, items 24px apart
+ * (Figma 14:16434).
+ * - Each item toggles independently. The Figma frame shows three answered
+ *   questions, so the first three start open and the rest start collapsed.
  * - Arrow Up/Down move focus between questions, Home/End jump to the ends
  *   (WAI-ARIA accordion pattern).
  */
 export function FaqAccordion() {
   const faqs = useApi("faqs", (signal) => api.getFaqs(undefined, { signal }));
   const baseId = useId();
-  // Track explicit toggles; undefined = default (first item open).
+  // Track explicit toggles; undefined = default (open for the first three).
   const [openState, setOpenState] = useState<Record<string, boolean>>({});
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -58,7 +62,7 @@ export function FaqAccordion() {
       {(items) => (
         <div className="flex flex-col gap-6" onKeyDown={handleKeyDown}>
           {items.map((faq, index) => {
-            const isOpen = openState[faq.id] ?? index === 0;
+            const isOpen = openState[faq.id] ?? index < INITIALLY_OPEN;
             return (
               <FaqItem
                 key={faq.id}

@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 /*
- * Design tokens — source: Figma file 3ZBkhvV8tXj90xxro7LhTC, page "Design System",
- * frame "Landing - GDGoC UGM" (14:16047), desktop 1440px.
+ * Design tokens — source: Figma file 3ZBkhvV8tXj90xxro7LhTC, page "Design System"
+ * (frames Landing 14:16047, About 14:16510, Overview 14:16894, Contact 14:16727),
+ * desktop 1440px. Every value below was read from get_design_context / get_variable_defs.
  *
- * Provenance tags used below:
- *   [var]  = Figma variable (get_variable_defs)
- *   [node] = value applied directly on a Figma node, no variable bound
- *            (Navigation 14:16048, Track card 14:16237)
+ * Provenance tags:
+ *   [var]  = Figma variable
+ *   [node] = value applied directly on Figma nodes (no variable bound)
  *
  * Components must use these tokens (bg-primary, text-fg-muted, rounded-card, ...)
  * and never raw hex values or arbitrary sizes that duplicate a token.
@@ -18,16 +18,20 @@
   --color-*: initial;
 
   /* ---------- Palette ---------- */
-  --color-blue-50: #eaf2ff; /* [node] active nav item / track illustration bg */
+  --color-blue-50: #eaf2ff; /* [node] active nav item, blue tint panels */
   --color-blue-300: #8ab4f8; /* [var] Blue/300 */
+  --color-blue-400: #6facff; /* [node] end stop of the "I made this." text gradient */
   --color-blue-500: #4284f4; /* [var] Blue/500 */
-  --color-blue-700: #1967d2; /* [node] link + active nav text, overline */
+  --color-blue-700: #1967d2; /* [node] links, accent headline text, icons */
 
+  --color-red-50: #fdedea; /* [node] red tint (solution tile, program icon) */
   --color-red-500: #ea4335; /* [var] Red/500 */
 
+  --color-yellow-50: #fff7df; /* [node] warm tint panels */
   --color-yellow-300: #fde293; /* [var] Yellow/300 */
   --color-yellow-500: #f9ab00; /* [var] Yellow/500 */
 
+  --color-green-50: #eaf5ed; /* [node] green tint panels */
   --color-green-500: #34a853; /* [var] Green/500 */
 
   --color-neutral-100: #ffffff; /* [var] Neutral colors/100 */
@@ -35,21 +39,30 @@
   --color-neutral-400: #dadce0; /* [node] borders, dividers */
   --color-neutral-700: #5f6368; /* [node] body / secondary text */
   --color-neutral-900: #242424; /* [node] headings */
+  --color-neutral-1000: #000000; /* [node] footer column titles, solution tile labels */
 
   /* ---------- Semantic aliases (use these in components) ---------- */
   --color-surface: var(--color-neutral-100);
   --color-surface-muted: var(--color-neutral-300);
   --color-surface-accent: var(--color-blue-50);
 
+  /* Tinted panels / illustration backgrounds */
+  --color-tint-blue: var(--color-blue-50);
+  --color-tint-red: var(--color-red-50);
+  --color-tint-yellow: var(--color-yellow-50);
+  --color-tint-green: var(--color-green-50);
+
   --color-border: var(--color-neutral-400);
 
   --color-fg: var(--color-neutral-900);
+  --color-fg-strong: var(--color-neutral-1000);
   --color-fg-muted: var(--color-neutral-700);
   --color-fg-inverse: var(--color-neutral-100);
 
   --color-primary: var(--color-blue-500);
   --color-primary-fg: var(--color-neutral-100);
   --color-link: var(--color-blue-700);
+  --color-accent-soft: var(--color-blue-400);
 
   /* Google brand accents (dots, markers, track colors) */
   --color-brand-blue: var(--color-blue-500);
@@ -58,99 +71,128 @@
   --color-brand-green: var(--color-green-500);
 
   /*
-   * TODO(figma): gradients "Gradient/Blue 1", "Gradient/Green 1", "Gradient/Yellow 1"
-   * exist as Figma variables but the MCP returned empty values, and the Figma MCP
-   * rate limit was hit before the nodes using them could be inspected.
-   * Add them here as --gradient-blue-1 / --gradient-green-1 / --gradient-yellow-1
-   * once read from Figma. Do NOT invent stops.
+   * Figma variables "Gradient/Blue 1", "Gradient/Green 1", "Gradient/Yellow 1" have no
+   * readable value via the MCP; they are only used inside the exported glass artwork SVGs,
+   * so no CSS token is needed.
    */
 
   /* ---------- Typography ---------- */
   /* Figma font: "Google Sans" (Regular 400 / Medium 500 / Bold 700), loaded via next/font. */
   --font-sans: var(--font-google-sans), ui-sans-serif, system-ui, sans-serif;
+  /* Inter — Landing journey numerals, section-nav arrows, inquiry/form glyphs. */
+  --font-inter: var(--font-inter-family), ui-sans-serif, system-ui, sans-serif;
 
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 700;
 
-  /* [node] Track card "Track theme": 11px Medium, uppercase */
-  --text-overline: 11px;
+  /* Body & UI text. "normal" = Figma line-height Auto. */
+  --text-overline: 11px; /* track theme, artwork caption */
   --text-overline--line-height: normal;
-
-  /* [node] Track card "Topics": 13px Regular, lh 1.5 */
-  --text-caption: 13px;
+  --text-eyebrow: 12px; /* section label, footer note, table header */
+  --text-eyebrow--line-height: normal;
+  --text-caption: 13px; /* topics, chips, format details */
   --text-caption--line-height: 1.5;
-
-  /* [node] Nav item, button label, text link: 16px, lh normal */
-  --text-label: 16px;
+  --text-small: 14px; /* welcome note, form labels, inquiry category description */
+  --text-small--line-height: 1.55;
+  --text-control: 15px; /* inputs, footer links, section navigation */
+  --text-control--line-height: normal;
+  --text-label: 16px; /* nav item, button label, text link */
   --text-label--line-height: normal;
-
-  /* [node] Track card "Description": 16px Regular, lh 1.55 */
   --text-body: 16px;
   --text-body--line-height: 1.55;
+  --text-body-plus: 17px; /* participation role, inquiry category title */
+  --text-body-plus--line-height: 1.55;
+  --text-body-md: 18px; /* section descriptions */
+  --text-body-md--line-height: 1.55;
+  --text-title-sm: 20px; /* FAQ question */
+  --text-title-sm--line-height: normal;
+  --text-lead: 21px; /* hero description (Landing, Overview) */
+  --text-lead--line-height: 1.55;
+  --text-lead-lg: 22px; /* hero description (About, Contact) */
+  --text-lead-lg--line-height: 1.55;
+  --text-lead-xl: 24px; /* About "Our purpose" lead paragraph */
+  --text-lead-xl--line-height: 1.55;
 
-  /* [node] Track card "Heading": 28px Bold, lh 1.12 */
-  --text-heading-sm: 28px;
-  --text-heading-sm--line-height: 1.12;
+  /* Headings — Google Sans Bold, line-height 1.12. Named after their Figma size (px). */
+  --text-heading-21: 21px;
+  --text-heading-21--line-height: 1.12;
+  --text-heading-24: 24px;
+  --text-heading-24--line-height: 1.12;
+  --text-heading-25: 25px;
+  --text-heading-25--line-height: 1.12;
+  --text-heading-26: 26px;
+  --text-heading-26--line-height: 1.12;
+  --text-heading-27: 27px;
+  --text-heading-27--line-height: 1.12;
+  --text-heading-28: 28px;
+  --text-heading-28--line-height: 1.12;
+  --text-heading-30: 30px;
+  --text-heading-30--line-height: 1.12;
+  --text-heading-32: 32px;
+  --text-heading-32--line-height: 1.12;
 
   /*
-   * [inferred] Sizes below are derived from text-box heights in the Figma metadata
-   * of 14:16047 (lines × line-height), not read from the text styles themselves —
-   * the MCP rate limit blocked get_design_context. Verify against Figma.
+   * Large headings are fluid: they hit the exact Figma size at the 1440px frame width
+   * and scale down (to a readable minimum) on smaller screens.
    */
-  /* Section label (14:16070): 15px box → 12px */
-  --text-eyebrow: 12px;
-  --text-eyebrow--line-height: 15px;
+  --text-heading-36: clamp(1.75rem, 2.5vw, 2.25rem);
+  --text-heading-36--line-height: 1.12;
+  --text-heading-40: clamp(1.875rem, 2.78vw, 2.5rem);
+  --text-heading-40--line-height: 1.12;
+  --text-heading-44: clamp(2rem, 3.06vw, 2.75rem);
+  --text-heading-44--line-height: 1.12;
+  --text-heading-48: clamp(2rem, 3.34vw, 3rem);
+  --text-heading-48--line-height: 1.12;
+  --text-display-72: clamp(2.5rem, 5vw, 4.5rem); /* About / Overview / Contact hero */
+  --text-display-72--line-height: 1.08;
+  --text-display-80: clamp(2.75rem, 5.56vw, 5rem); /* Landing hero */
+  --text-display-80--line-height: 1.05;
 
-  /* Welcome note / sticker / campus label: 14px */
-  --text-small: 14px;
-  --text-small--line-height: 1.3;
+  /* Step numerals ("01", "02", …) */
+  --text-numeral-38: clamp(2rem, 2.64vw, 2.375rem); /* Overview learning stages */
+  --text-numeral-38--line-height: normal;
+  --text-numeral-44: clamp(2.25rem, 3.06vw, 2.75rem); /* Landing journey */
+  --text-numeral-44--line-height: normal;
 
-  /* Lead text (14:16231, 14:16216): 28px lines → 18px × 1.55 */
-  --text-body-md: 18px;
-  --text-body-md--line-height: 1.55;
+  /*
+   * Figma line-height "Auto" = the font's own metrics (CSS `normal`). Tailwind's
+   * built-in `leading-auto` is 1.5, so overrides use `leading-auto` instead.
+   */
+  --leading-auto: normal;
 
-  /* Intro / hero description (14:16215, 14:16072): 33px lines → 20px × 1.65 */
-  --text-body-lg: 20px;
-  --text-body-lg--line-height: 1.65;
+  /* Decorative glyph sizes (inquiry category icon, project card mark) */
+  --text-glyph-24: 24px;
+  --text-glyph-24--line-height: normal;
+  --text-glyph-25: 25px;
+  --text-glyph-25--line-height: normal;
+  --text-glyph-28: 28px;
+  --text-glyph-28--line-height: normal;
 
-  /* FAQ question (14:16437): 25px box → 20px */
-  --text-title-sm: 20px;
-  --text-title-sm--line-height: 1.25;
-
-  /* Journey step heading (14:16407): 28px box → 22px */
-  --text-title-md: 22px;
-  --text-title-md--line-height: 1.27;
-
-  /* Belonging + invitation headings (14:16422, 14:16462): 45–49px lines → 40px */
-  --text-heading-md: 40px;
-  --text-heading-md--line-height: 1.15;
-
-  /* Section headings + step numbers (14:16209, 14:16230, 14:16405): 54px lines → 48px */
-  --text-heading-lg: 48px;
-  --text-heading-lg--line-height: 1.125;
-
-  /* Hero headline (14:16071): 168px box = 3 × 56px lines → 50px */
-  --text-display: 50px;
-  --text-display--line-height: 1.12;
+  /* Learning sticker in the Landing hero artwork */
+  --text-sticker: 23px;
+  --text-sticker--line-height: normal;
 
   /* ---------- Radius ---------- */
   --radius-*: initial;
-  --radius-xs: 2px; /* [inferred] small accent squares (14:16195) */
-  --radius-control: 8px; /* [node] primary action button */
-  --radius-card: 24px; /* [node] track card */
-  --radius-pill: 100px; /* [node] nav item */
-
-  /* ---------- Shadows ---------- */
-  /* TODO(figma): no shadow values were found on the nodes inspected so far. */
+  --radius-xs: 2px; /* value accent bar */
+  --radius-control: 8px; /* buttons, inputs, sticker */
+  --radius-tile: 12px; /* solution tiles */
+  --radius-icon: 14px; /* program icon */
+  --radius-box: 16px; /* inquiry category, project preview */
+  --radius-table: 20px; /* track comparison */
+  --radius-card: 24px; /* cards, contact form */
+  --radius-panel: 32px; /* artwork tiles, invitation panel */
+  --radius-pill: 100px; /* nav item, chips, campus label */
 
   /* ---------- Layout / spacing ---------- */
   /* Spacing scale: Tailwind default (4px step). All observed Figma gaps/paddings
-     (8, 12, 14, 16, 18, 20, 24, 28, 32, 48, 64, 96) map onto it. */
+     (6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 32, 36, 40, 48, 56, 64, 72, 80, 88, 96)
+     map onto it. */
   --spacing-nav-x: 64px; /* [node] navigation horizontal padding */
-  --spacing-page-x: 96px; /* [node] section content inset (1440 - 1248) / 2 */
   --spacing-nav-h: 104px; /* [node] navigation height */
   --spacing-control-h: 52px; /* [node] primary action height */
+  --spacing-input-h: 54px; /* [node] form input height */
   --container-content: 1248px; /* [node] content width inside 1440 frame */
 
   /* ---------- Breakpoints ----------
@@ -175,5 +217,10 @@
 
   body {
     @apply bg-surface font-sans text-body text-fg antialiased;
+  }
+
+  /* Anchor targets (Overview section navigation) clear the page top a little. */
+  [id] {
+    scroll-margin-top: 1.5rem;
   }
 }

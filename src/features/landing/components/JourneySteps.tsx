@@ -1,17 +1,14 @@
 "use client";
 
 import { AsyncContent, EmptyState, ErrorState, LoadingSkeleton } from "@/components/states";
-import { brandToneText } from "@/components/ui";
 import { useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
-import { cn } from "@/lib/utils";
-
-import { journeyTones } from "../data";
 
 /**
- * "Participation journey" (Figma 14:16403): numbered steps with a divider,
- * heading and description, 40px apart. Steps come from GET /api/journey
- * (4 steps; Figma shows 3), so the grid is 2 columns on md and 4 on lg.
+ * "Participation journey" (Figma 14:16403): equal columns, 40px apart; each step is a
+ * 44px Bold link-blue numeral, divider, 25px heading and description, 20px apart.
+ * Steps come from GET /api/journey (4 steps; Figma shows 3), so the grid is
+ * 2 columns on tablet and 4 on desktop.
  */
 export function JourneySteps() {
   const journey = useApi("journey", (signal) => api.getJourney({ signal }));
@@ -27,19 +24,13 @@ export function JourneySteps() {
     >
       {(steps) => (
         <ol className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step, index) => (
+          {steps.map((step) => (
             <li key={step.id} className="flex flex-col gap-5">
-              <span
-                aria-hidden
-                className={cn(
-                  "text-heading-md font-bold lg:text-heading-lg",
-                  brandToneText[journeyTones[index % journeyTones.length]],
-                )}
-              >
+              <span aria-hidden className="font-inter text-numeral-44 font-bold text-link">
                 {String(step.step).padStart(2, "0")}
               </span>
               <hr className="border-border" />
-              <h3 className="text-title-md font-bold text-fg">
+              <h3 className="text-heading-25 font-bold text-fg">
                 <span className="sr-only">Step {step.step}: </span>
                 {step.title}
               </h3>

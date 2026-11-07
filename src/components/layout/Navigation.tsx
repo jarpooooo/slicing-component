@@ -8,7 +8,7 @@ import { useId, useState, type KeyboardEvent } from "react";
 
 import { Button } from "@/components/ui";
 import { assets } from "@/lib/assets";
-import { siteConfig } from "@/lib/site";
+import { siteConfig, type NavItem } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 function isActivePath(pathname: string, href: string) {
@@ -16,6 +16,7 @@ function isActivePath(pathname: string, href: string) {
 }
 
 type NavLinksProps = {
+  items: NavItem[];
   pathname: string;
   className?: string;
   linkClassName?: string;
@@ -23,10 +24,10 @@ type NavLinksProps = {
 };
 
 /** Page links. Figma 14:16052: pill items, 20/14px padding, 8px gap. */
-function NavLinks({ pathname, className, linkClassName, onNavigate }: NavLinksProps) {
+function NavLinks({ items, pathname, className, linkClassName, onNavigate }: NavLinksProps) {
   return (
     <ul className={className}>
-      {siteConfig.nav.map(({ label, href }) => {
+      {items.map(({ label, href }) => {
         const isActive = isActivePath(pathname, href);
         return (
           <li key={href}>
@@ -52,11 +53,11 @@ function NavLinks({ pathname, className, linkClassName, onNavigate }: NavLinksPr
 }
 
 /**
- * Site navigation — Figma "Navigation" (14:16048).
+ * Site navigation — Figma "Navigation" (14:16048). Links come from GET /api/navigation.
  * Desktop (lg+): logo · page links · primary action in one 104px row.
  * Below lg: logo + hamburger toggling a disclosure panel with the same links.
  */
-export function Navigation() {
+export function Navigation({ items }: { items: NavItem[] }) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const menuId = useId();
@@ -88,7 +89,7 @@ export function Navigation() {
           />
         </Link>
 
-        <NavLinks pathname={pathname} className="hidden items-center gap-2 lg:flex" />
+        <NavLinks items={items} pathname={pathname} className="hidden items-center gap-2 lg:flex" />
 
         <Button href={siteConfig.navAction.href} withArrow className="hidden lg:inline-flex">
           {siteConfig.navAction.label}
@@ -112,6 +113,7 @@ export function Navigation() {
         className="absolute inset-x-0 top-full z-40 border-b border-border bg-surface px-4 pt-2 pb-6 md:px-8 lg:hidden"
       >
         <NavLinks
+          items={items}
           pathname={pathname}
           onNavigate={close}
           className="flex flex-col gap-1"

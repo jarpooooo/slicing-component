@@ -1,26 +1,26 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
+
+import { AssetIcon } from "./AssetIcon";
 
 type ButtonVariant = "primary" | "secondary" | "link";
 
 /**
  * Variant styles from Figma:
- * - primary: "Action" (14:16061) — Blue/500 fill, 52px tall, 24px x-padding,
- *   16px gap, 8px radius, 16px Medium white label, 20px arrow.
- * - link: "Text link" (14:16268) — 16px Medium link-blue label, 12px gap, 20px arrow.
- *
- * - secondary: hero second action (14:16078) — same geometry as primary; fill/border not
- *   inspected (Figma rate limit), rendered as an outlined neutral button. TODO(figma): verify.
+ * - primary: "Action" (14:16061) — Blue/500 fill, transparent 1px border, 52px tall,
+ *   24px x-padding, 16px gap, 8px radius, 16px Medium white label, 20px white arrow.
+ * - secondary: hero second action (14:16078) — same geometry, white fill,
+ *   #DADCE0 border, link-blue label and arrow.
+ * - link: "Text link" (14:16268) — 16px Medium link-blue label, 12px gap, 20px blue arrow.
  */
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "h-control-h gap-4 rounded-control border border-transparent bg-primary px-6 text-primary-fg hover:bg-blue-700",
+    "h-control-h gap-4 rounded-control border border-transparent bg-primary px-6 text-primary-fg hover:bg-link",
   secondary:
-    "h-control-h gap-4 rounded-control border border-border bg-surface px-6 text-fg hover:bg-surface-muted",
-  link: "gap-3 text-link hover:underline",
+    "h-control-h gap-4 rounded-control border border-border bg-surface px-6 text-link hover:bg-surface-accent",
+  link: "gap-3 rounded-control text-link hover:underline underline-offset-4",
 };
 
 const baseClasses =
@@ -53,7 +53,9 @@ export function Button({
   const content = (
     <>
       {children}
-      {withArrow && <ArrowRight aria-hidden className="size-5 shrink-0" />}
+      {withArrow && (
+        <AssetIcon name={variant === "primary" ? "arrowRightWhite" : "arrowRightBlue"} />
+      )}
     </>
   );
 

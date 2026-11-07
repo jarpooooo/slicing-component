@@ -1,17 +1,32 @@
 import type { Metadata } from "next";
 
-import { Section } from "@/components/ui";
+import { CommunityInvitation } from "@/components/sections";
+import {
+  LearningJourney,
+  OverviewHero,
+  ProgramFormats,
+  SectionNav,
+  StartingPoint,
+  TrackOverview,
+} from "@/features/overview";
 
 export const metadata: Metadata = {
   title: "Overview",
+  description:
+    "Programs & learning tracks at GDGoC UGM: explore research, design, and development, the ways we learn together, and where to start.",
 };
 
-/** Placeholder — sections from Figma node 14:16894 are built in the next phase. */
+/** Overview page (Figma 14:16894). Navigation and Footer come from the root layout. */
 export default function OverviewPage() {
   return (
-    <Section className="py-16">
-      <h1 className="text-heading-sm font-bold">Overview</h1>
-      <p className="mt-4 text-fg-muted">Page placeholder (Figma node 14:16894).</p>
-    </Section>
+    <>
+      <OverviewHero />
+      <SectionNav />
+      <TrackOverview />
+      <ProgramFormats />
+      <LearningJourney />
+      <StartingPoint />
+      <CommunityInvitation />
+    </>
   );
 }

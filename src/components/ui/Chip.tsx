@@ -3,17 +3,14 @@ import type { ComponentPropsWithoutRef } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * "Attribute" chip from Figma "Community attributes" (14:16218): 32px tall,
- * 14px x-padding, pill shape.
- *
- * TODO(figma): confirm fill/border color and label size for 14:16218 — only its
- * geometry was read before the MCP rate limit.
+ * "Attribute" chip from Figma "Community attributes" (14:16218): Neutrals/300 fill,
+ * 14px × 8px padding, pill shape, 13px Bold muted label.
  */
 export function Chip({ className, ...props }: ComponentPropsWithoutRef<"span">) {
   return (
     <span
       className={cn(
-        "inline-flex h-8 items-center rounded-pill border border-border px-3.5 text-caption text-fg-muted",
+        "inline-flex items-center rounded-pill bg-surface-muted px-3.5 py-2 text-caption leading-auto font-bold whitespace-nowrap text-fg-muted",
         className,
       )}
       {...props}

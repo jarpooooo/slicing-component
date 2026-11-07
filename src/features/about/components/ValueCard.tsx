@@ -1,24 +1,26 @@
-import { brandToneBg, brandToneText, Card } from "@/components/ui";
+import { AssetIcon, brandToneBg, Card, type BrandTone } from "@/components/ui";
+import type { CommunityValue } from "@/lib/api";
+import type { AssetName } from "@/lib/assets";
 import { cn } from "@/lib/utils";
 
-import type { AboutValue } from "../data";
+type ValueCardProps = {
+  /** From GET /api/values. */
+  value: CommunityValue;
+  tone: BrandTone;
+  icon: AssetName;
+};
 
 /**
- * Community value card: brand-colored accent bar on top, icon, title and
- * description. Icons are decorative (aria-hidden), so the brand tone is used
- * even for yellow; all text stays fg / fg-muted for contrast.
+ * "Value" card (Figma 14:16620): 1px border, 24px radius, 26px padding, 22px gaps —
+ * a 36×4 brand-colored accent bar, 24px link-blue icon, 24px title and description.
  */
-export function ValueCard({ value }: { value: AboutValue }) {
-  const Icon = value.icon;
-
+export function ValueCard({ value, tone, icon }: ValueCardProps) {
   return (
-    <Card className="h-full">
-      <span aria-hidden className={cn("h-1.5 w-full shrink-0", brandToneBg[value.tone])} />
-      <div className="flex flex-1 flex-col gap-5 p-7 md:p-8">
-        <Icon aria-hidden className={cn("size-6", brandToneText[value.tone])} />
-        <h3 className="text-title-md font-bold text-fg">{value.title}</h3>
-        <p className="text-body text-fg-muted">{value.description}</p>
-      </div>
+    <Card className="h-full items-start gap-5.5 p-6.5">
+      <span aria-hidden className={cn("h-1 w-9 rounded-xs", brandToneBg[tone])} />
+      <AssetIcon name={icon} className="size-6" />
+      <h3 className="text-heading-24 font-bold text-fg">{value.title}</h3>
+      <p className="text-body text-fg-muted">{value.description}</p>
     </Card>
   );
 }

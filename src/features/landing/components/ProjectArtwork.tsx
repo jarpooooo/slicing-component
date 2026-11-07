@@ -1,55 +1,54 @@
-import { brandToneBg, type BrandTone } from "@/components/ui";
+import { AssetIcon, brandToneTint } from "@/components/ui";
 import { cn } from "@/lib/utils";
 
 import { projectContent } from "../data";
 
-const windowDots: BrandTone[] = ["red", "yellow", "green"];
-
 /**
- * "Example project artwork" (Figma 14:16364, 592×444): a decorative card showing
- * a mock campus project — header, browser-like preview with solution tiles,
- * and a caption. Purely illustrative, so the preview is aria-hidden except for
- * its caption.
- *
- * The Figma screenshot renders this panel dark; the fill could not be read
- * (rate limit), so it uses the muted surface token to keep text contrast high.
+ * "Example project artwork" (Figma 14:16364, 592px wide): Yellow/50 panel, 32px radius,
+ * 40px padding, 24px gaps — header, white "campus project preview" card (16px radius,
+ * 26px padding) with browser dots, a 32px heading, three tinted solution tiles and a
+ * caption line. Purely illustrative, so the preview is aria-hidden; the caption stays
+ * readable.
  */
 export function ProjectArtwork() {
   const { artwork } = projectContent;
 
   return (
-    <figure className="flex flex-col gap-6 rounded-card bg-surface-muted p-6 md:p-10">
+    <figure className="flex w-full flex-col gap-6 rounded-panel bg-tint-yellow p-6 md:p-10 lg:w-148 lg:shrink-0">
       <div aria-hidden className="flex items-center justify-between">
-        <span className="text-overline font-medium text-fg-muted uppercase">
-          {artwork.overline}
-        </span>
-        <span className="text-title-sm font-bold text-link">{"</>"}</span>
+        <span className="text-eyebrow text-fg-muted">{artwork.overline}</span>
+        <span className="text-glyph-24 text-link">{"</>"}</span>
       </div>
 
       <div
         aria-hidden
-        className="flex flex-col gap-6 rounded-card border border-border bg-surface p-5 md:p-6.5"
+        className="flex flex-col gap-6 rounded-box border border-border bg-surface p-5 md:p-6.5"
       >
-        <span className="flex gap-1.5">
-          {windowDots.map((tone) => (
-            <span key={tone} className={cn("size-2 rounded-full", brandToneBg[tone])} />
-          ))}
-        </span>
-        <span className="text-heading-sm font-bold text-fg">{artwork.heading}</span>
-        <span className="grid grid-cols-3 gap-3">
-          {artwork.tiles.map((tile) => (
-            <span
-              key={tile}
-              className="flex h-12 items-center rounded-control bg-surface-muted px-3 text-caption font-medium text-fg md:px-4"
-            >
-              {tile}
+        <AssetIcon name="browserChrome" />
+        <span className="text-heading-28 font-bold text-fg md:text-heading-32">
+          {artwork.headingLines.map((line) => (
+            <span key={line} className="block">
+              {line}
             </span>
           ))}
         </span>
-        <span className="text-small text-fg-muted">{artwork.description}</span>
+        <span className="grid grid-cols-3 gap-3">
+          {artwork.tiles.map(({ label, tone }) => (
+            <span
+              key={label}
+              className={cn(
+                "rounded-tile p-3 text-caption leading-auto font-bold text-fg-strong sm:p-4",
+                brandToneTint[tone],
+              )}
+            >
+              {label}
+            </span>
+          ))}
+        </span>
+        <span className="text-caption text-fg-muted">{artwork.description}</span>
       </div>
 
-      <figcaption className="text-caption text-fg-muted">{artwork.caption}</figcaption>
+      <figcaption className="text-overline text-fg-muted">{artwork.caption}</figcaption>
     </figure>
   );
 }

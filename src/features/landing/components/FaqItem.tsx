@@ -1,5 +1,4 @@
-import { ChevronDown } from "lucide-react";
-
+import { AssetIcon } from "@/components/ui";
 import type { Faq } from "@/lib/api";
 import { cn } from "@/lib/utils";
 
@@ -12,17 +11,17 @@ type FaqItemProps = {
 };
 
 /**
- * "FAQ item" (Figma 14:16435): question row with a 24px disclosure chevron,
- * answer 14px below, divider 14px under the answer.
- * Accessible accordion item: a real <button> with aria-expanded/aria-controls
- * and a labelled region; native Enter/Space toggle it.
+ * "FAQ item" (Figma 14:16435): 20px Medium question with a 24px link-blue disclosure
+ * chevron (24px gap), 16px answer and a divider, 14px apart.
+ * Accessible accordion item: a real <button> with aria-expanded/aria-controls and a
+ * labelled region; native Enter/Space toggle it.
  */
 export function FaqItem({ faq, isOpen, onToggle, id }: FaqItemProps) {
   const triggerId = `${id}-trigger`;
   const panelId = `${id}-panel`;
 
   return (
-    <div className="border-b border-border pb-3.5">
+    <div className="flex flex-col gap-3.5">
       <h3>
         <button
           id={triggerId}
@@ -31,27 +30,21 @@ export function FaqItem({ faq, isOpen, onToggle, id }: FaqItemProps) {
           aria-expanded={isOpen}
           aria-controls={panelId}
           onClick={onToggle}
-          className="flex w-full items-start justify-between gap-6 rounded-control py-1 text-left text-title-sm font-medium text-fg transition-colors hover:text-link focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+          className="flex w-full items-center justify-between gap-6 rounded-control text-left text-title-sm font-medium text-fg transition-colors hover:text-link focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
         >
           {faq.question}
-          <ChevronDown
-            aria-hidden
-            className={cn(
-              "mt-0.5 size-6 shrink-0 text-fg-muted transition-transform",
-              isOpen && "rotate-180",
-            )}
+          <AssetIcon
+            name="chevronDown"
+            // Figma shows the expanded state with the chevron pointing down;
+            // collapsed items point right.
+            className={cn("size-6 transition-transform", !isOpen && "-rotate-90")}
           />
         </button>
       </h3>
-      <div
-        id={panelId}
-        role="region"
-        aria-labelledby={triggerId}
-        hidden={!isOpen}
-        className="pt-3.5 pr-12"
-      >
+      <div id={panelId} role="region" aria-labelledby={triggerId} hidden={!isOpen}>
         <p className="text-body text-fg-muted">{faq.answer}</p>
       </div>
+      <hr className="border-border" />
     </div>
   );
 }

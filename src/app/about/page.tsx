@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { CommunityInvitation } from "@/components/sections";
 import {
   AboutHero,
-  aboutInvitationContent,
   CommunityCommitment,
   CommunityValues,
   OurPurpose,
@@ -13,7 +12,7 @@ import {
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Who we are: GDGoC Universitas Gadjah Mada is a student-led community to learn, build, and share technology together — our purpose, values, and ways to belong.",
+    "Built by students. For what’s next. GDGoC Universitas Gadjah Mada is a community of learners and makers connected by curiosity.",
 };
 
 /** About page (Figma 14:16510). Navigation and Footer come from the root layout. */
@@ -25,7 +24,7 @@ export default function AboutPage() {
       <CommunityValues />
       <WaysToBelong />
       <CommunityCommitment />
-      <CommunityInvitation headingId="about-invitation-heading" {...aboutInvitationContent} />
+      <CommunityInvitation />
     </>
   );
 }

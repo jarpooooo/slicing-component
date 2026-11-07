@@ -1,17 +1,26 @@
 import type { Metadata } from "next";
 
-import { Section } from "@/components/ui";
+import { ContactHero, ContactWorkspace, InquiryGuidance } from "@/features/contact";
+import { getSiteInfo } from "@/lib/api/server";
 
 export const metadata: Metadata = {
   title: "Contact",
+  description:
+    "Good things start with hello. Send GDGoC UGM a question, a collaboration idea, or an idea for the community.",
 };
 
-/** Placeholder — sections from Figma node 14:16727 are built in the next phase. */
-export default function ContactPage() {
+/** Contact page (Figma 14:16727). Navigation and Footer come from the root layout. */
+export default async function ContactPage() {
+  const siteInfo = await getSiteInfo(); // GET /api/stats
+
   return (
-    <Section className="py-16">
-      <h1 className="text-heading-sm font-bold">Contact</h1>
-      <p className="mt-4 text-fg-muted">Page placeholder (Figma node 14:16727).</p>
-    </Section>
+    <>
+      <ContactHero />
+      <ContactWorkspace
+        instagramHandle={siteInfo.instagramHandle}
+        instagramUrl={siteInfo.instagramUrl}
+      />
+      <InquiryGuidance />
+    </>
   );
 }

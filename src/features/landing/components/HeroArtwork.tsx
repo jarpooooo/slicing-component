@@ -8,42 +8,52 @@ import { heroContent } from "../data";
 /**
  * "Ideas coming together" artwork (Figma 14:16089, 620×530).
  *
- * This is a layered illustration, so its pieces are absolutely positioned —
- * but in percentages of the 620×530 frame, so the whole composition scales
- * with its container instead of being fixed to desktop pixels.
+ * A layered illustration, so its pieces are absolutely positioned — in percentages of
+ * the 620×530 frame, so the composition scales with its container.
  *
- * The exported SVGs include a drop-shadow/glow that bleeds down and left, so the
- * visible tile sits near the top-right of each SVG. Positions align the tile
- * center (measured in the SVG) with the Figma instance center:
- *   research    tile center (260, 126) in SVG → instance center (139, 123)
- *   development tile center (435, 207) in SVG → instance center (382, 281)
+ * Each artwork file covers the node's render bounds in Figma (its drop shadows bleed
+ * left and down), so the files are placed by those bounds, measured in the Plugin API
+ * relative to the 620×530 frame:
+ *   glass tile   (0, 0)        620 × 530   — 2x WebP (background blur can't be SVG)
+ *   research     (-109.7, 2)   383 × 421
+ *   development  (-41.4, 85)   649 × 696
  */
 export function HeroArtwork({ className }: { className?: string }) {
   return (
     <div className={cn("relative aspect-620/530 w-full max-w-155", className)}>
-      <Image {...assets.heroGlassBg} alt="" priority className="absolute inset-0 size-full" />
+      <Image
+        {...assets.heroGlassBg}
+        alt=""
+        priority
+        unoptimized
+        className="absolute inset-0 size-full rounded-panel"
+      />
       <Image
         {...assets.heroResearch}
         alt=""
         priority
-        className="absolute top-[-0.5%] left-[-19.5%] h-auto w-[61.9%] max-w-none"
+        className="absolute top-[0.38%] left-[-17.7%] h-auto w-[61.94%] max-w-none"
       />
       <Image
         {...assets.heroDevelopment}
         alt=""
         priority
-        className="absolute top-[14%] left-[-8.5%] h-auto w-[104.8%] max-w-none"
+        className="absolute top-[16.04%] left-[-6.67%] h-auto w-[104.84%] max-w-none"
       />
 
-      {/* Learning sticker (14:16090) — 252×87 @ (24, 356), slightly rotated */}
-      <p className="absolute top-[50%] left-[3.9%] w-[46%] -rotate-2 rounded-control bg-yellow-300 px-4 py-3 text-small font-medium text-fg sm:top-[67.2%] sm:w-[40.6%] sm:px-5 sm:py-3.5">
+      {/* Learning sticker (14:16090): white, bordered, rotated -7°, centered in its
+          252×87 bounding box at (24, 326) */}
+      <p className="absolute top-[69.65%] left-[24.2%] -translate-1/2 -rotate-7 rounded-control border border-border bg-surface px-2.5 py-1.5 text-small leading-auto font-bold whitespace-nowrap text-fg sm:px-5 sm:py-3.5 sm:text-sticker">
         {heroContent.sticker}
       </p>
 
-      {/* Campus label (14:16092) — 237×35 pill @ (300, 455) */}
-      <p className="absolute top-[88%] right-[3%] inline-flex items-center gap-2 rounded-pill border border-border bg-surface px-4 py-2.5 text-eyebrow font-medium whitespace-nowrap text-fg sm:top-[85.8%] sm:right-auto sm:left-[48.4%]">
+      {/* Campus label (14:16092): white pill @ (300, 455) */}
+      <p className="absolute top-[85.85%] left-[48.4%] inline-flex items-center gap-2 rounded-pill bg-surface px-4 py-2.5 text-eyebrow whitespace-nowrap text-fg-muted max-sm:right-[3%] max-sm:left-auto">
         <span aria-hidden className="size-2 shrink-0 rounded-full bg-brand-green" />
-        {heroContent.campusLabel}
+        <span>
+          Built on <strong className="font-bold">curiosity.</strong> Rooted in{" "}
+          <strong className="font-bold">UGM.</strong>
+        </span>
       </p>
     </div>
   );

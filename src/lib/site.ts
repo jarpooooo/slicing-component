@@ -1,15 +1,16 @@
 /**
  * Static site configuration shared by the layout, Navigation and Footer.
  *
- * Navigation links mirror GET /api/navigation (same labels/hrefs) but are kept
- * static so the shell renders instantly and never depends on the network.
- * Order and labels follow the Figma Navigation (14:16052).
+ * Text the API provides (navigation links, university name, tagline, Instagram
+ * handle) is read at render time through `src/lib/api/server.ts`; the values in
+ * `nav` and `fallback` are only used when the API is unreachable.
  */
 export const siteConfig = {
   name: "GDGoC UGM",
   fullName: "Google Developer Groups on Campus Universitas Gadjah Mada",
   description:
     "Google Developer Groups on Campus Universitas Gadjah Mada — learn together, build together.",
+  /** Fallback for GET /api/navigation. Order and labels follow Figma (14:16052). */
   nav: [
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
@@ -19,27 +20,27 @@ export const siteConfig = {
   /** Primary navigation action ("Find your track", 14:16061). */
   navAction: { label: "Find your track", href: "/overview" },
 
-  /**
-   * Footer (Figma 14:16473). Source tags as in features/landing/data.ts:
-   * [layer] layer name, [api] API text, TODO(copy) placeholder to replace.
-   */
+  /** Academic year shown next to the community name across the design. */
+  academicYear: "2026/2027",
+
+  /** Footer copy — Figma "Footer" (14:16473). */
   footer: {
     description:
-      "Google Developer Groups on Campus Universitas Gadjah Mada. A student community to learn together and build together.", // TODO(copy)
-    exploreTitle: "Explore", // [layer]
-    connectTitle: "Connect with us", // TODO(copy)
-    connectDescription: "Follow along for events and updates.", // TODO(copy)
-    copyright: "© GDGoC Universitas Gadjah Mada · 2026/2027", // [api] docs page footer
-    note: "Made for the campus. Open to possibilities.", // [api] docs page footer
+      "A student community for curious minds, shared learning, and technology with purpose.",
+    exploreTitle: "Explore",
+    connectTitle: "Keep in the loop",
+    note: "Made for the campus. Open to possibilities.",
   },
 
-  /** Social channels. Handle from GET /api/stats → social.instagram. */
-  social: {
-    handle: "@gdgoc.ugm",
-    instagram: "https://www.instagram.com/gdgoc.ugm",
-    /** TODO: YouTube URL is not provided by the API or the design; icon renders unlinked. */
-    youtube: null as string | null,
+  /** Fallbacks for GET /api/stats. */
+  fallback: {
+    university: "Universitas Gadjah Mada",
+    tagline: "Learn together. Build together.",
+    instagramHandle: "@gdgoc.ugm",
   },
+
+  /** YouTube is in the Figma footer but no URL exists in the API; the icon renders unlinked. */
+  youtubeUrl: null as string | null,
 } as const;
 
-export type NavItem = (typeof siteConfig.nav)[number];
+export type NavItem = { label: string; href: string };

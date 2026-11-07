@@ -1,47 +1,46 @@
 import Image from "next/image";
 
-import { Chip, Container, EyebrowLabel } from "@/components/ui";
+import { Container, EyebrowLabel } from "@/components/ui";
+import { getSiteInfo } from "@/lib/api/server";
 import { assets } from "@/lib/assets";
+import { siteConfig } from "@/lib/site";
 
 import { aboutHeroContent } from "../data";
 
 /**
- * "About introduction" (Figma 14:16529): two-line heading (second line blue),
- * description, year label, and the GDGoC artwork on the right.
+ * "About introduction" (Figma 14:16529): 80px vertical padding, 720px headline column
+ * (26px gaps) and the 464×400 community mark artwork, 64px apart.
  * Below lg the artwork stacks under the copy.
- *
- * Blue line uses `text-primary` (Blue/500, ~3.6:1 on white) — allowed because the
- * heading is large text (≥ 24px bold, WCAG 3:1).
  */
-export function AboutHero() {
+export async function AboutHero() {
   const [firstLine, secondLine] = aboutHeroContent.headingLines;
+  const { university } = await getSiteInfo(); // GET /api/stats
 
   return (
     <section aria-labelledby="about-heading">
-      <Container className="grid items-center gap-12 py-12 md:py-16 lg:grid-cols-2 lg:gap-10 lg:py-22">
-        <div className="flex max-w-155 flex-col items-start gap-7">
-          <EyebrowLabel tone="blue">{aboutHeroContent.eyebrow}</EyebrowLabel>
-          <h1
-            id="about-heading"
-            className="text-heading-md font-bold text-balance text-fg md:text-heading-lg lg:text-display"
-          >
+      <Container className="flex flex-col items-center gap-12 py-12 md:py-16 lg:flex-row lg:justify-between lg:gap-16 lg:py-20">
+        <div className="flex max-w-180 flex-col items-start gap-6.5">
+          <EyebrowLabel>{aboutHeroContent.eyebrow}</EyebrowLabel>
+          <h1 id="about-heading" className="text-display-72 font-bold text-fg">
             <span className="block">{firstLine}</span>
-            <span className="block text-primary">{secondLine}</span>
+            <span className="block text-link">{secondLine}</span>
           </h1>
-          <p className="text-body-md text-fg-muted md:text-body-lg">
-            {aboutHeroContent.description}
+          <p className="text-body-md text-fg-muted md:text-lead-lg">
+            {aboutHeroContent.description.before}
+            {university}
+            {aboutHeroContent.description.after}
           </p>
-          <Chip className="gap-2 font-medium text-fg">
-            <span aria-hidden className="size-2 rounded-full bg-brand-green" />
-            {aboutHeroContent.yearLabel}
-          </Chip>
+          <p className="text-caption leading-auto text-fg-muted uppercase">
+            {university} • {siteConfig.academicYear}
+          </p>
         </div>
 
         <Image
           {...assets.aboutHeroArtwork}
           alt=""
           priority
-          className="mx-auto h-auto w-full max-w-116 lg:mr-0 lg:ml-auto"
+          unoptimized
+          className="h-auto w-full max-w-116 shrink-0 rounded-panel"
         />
       </Container>
     </section>

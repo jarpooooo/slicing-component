@@ -1,5 +1,6 @@
 // Verifies every asset in src/lib/assets.ts exists in /public with the exact same
-// letter casing (Vercel is case-sensitive) and that width/height match the SVG root.
+// letter casing (Vercel is case-sensitive) and that width/height match the file
+// (SVG root attributes, or half the pixel size of a 2x WebP).
 // Also lists files in public/icons and public/images that are not registered yet.
 import { readFileSync, readdirSync } from "node:fs";
 import { dirname, join, basename } from "node:path";
@@ -9,6 +10,37 @@ const source = readFileSync(join(root, "src/lib/assets.ts"), "utf8");
 const entries = [
   ...source.matchAll(/(\w+):\s*\{\s*src:\s*"([^"]+)",\s*width:\s*(\d+),\s*height:\s*(\d+)\s*\}/g),
 ].map(([, name, src, width, height]) => ({ name, src, width: +width, height: +height }));
+
+/**
+ * CSS size of an asset: SVG root width/height, or half the pixel size of a WebP
+ * (raster exports are 2x). Returns null when the size can't be read.
+ */
+function readSize(file) {
+  if (file.endsWith(".svg")) {
+    const root = readFileSync(file, "utf8").match(/<svg[^>]*>/)?.[0] ?? "";
+    const w = Number(root.match(/\swidth="([\d.]+)"/)?.[1]);
+    const h = Number(root.match(/\sheight="([\d.]+)"/)?.[1]);
+    return w && h ? { w, h } : null;
+  }
+  if (file.endsWith(".webp")) {
+    const buf = readFileSync(file);
+    const chunk = buf.toString("ascii", 12, 16);
+    let w, h;
+    if (chunk === "VP8X") {
+      w = 1 + buf.readUIntLE(24, 3);
+      h = 1 + buf.readUIntLE(27, 3);
+    } else if (chunk === "VP8 ") {
+      w = buf.readUInt16LE(26) & 0x3fff;
+      h = buf.readUInt16LE(28) & 0x3fff;
+    } else if (chunk === "VP8L") {
+      const bits = buf.readUInt32LE(21);
+      w = (bits & 0x3fff) + 1;
+      h = ((bits >> 14) & 0x3fff) + 1;
+    }
+    return w && h ? { w: w / 2, h: h / 2 } : null;
+  }
+  return null;
+}
 
 let errors = 0;
 const fail = (msg) => {
@@ -36,11 +68,9 @@ for (const { name, src, width, height } of entries) {
     );
     continue;
   }
-  const svgRoot = readFileSync(file, "utf8").match(/<svg[^>]*>/)?.[0] ?? "";
-  const w = Number(svgRoot.match(/\swidth="([\d.]+)"/)?.[1]);
-  const h = Number(svgRoot.match(/\sheight="([\d.]+)"/)?.[1]);
-  if (w && h && (Math.round(w) !== width || Math.round(h) !== height)) {
-    fail(`${name}: size in assets.ts is ${width}x${height}, SVG root says ${w}x${h}`);
+  const size = readSize(file);
+  if (size && (Math.round(size.w) !== width || Math.round(size.h) !== height)) {
+    fail(`${name}: size in assets.ts is ${width}x${height}, file says ${size.w}x${size.h}`);
     continue;
   }
   console.log(`✓ ${name.padEnd(18)} ${src}`);

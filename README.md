@@ -6,14 +6,14 @@ GDGoC UGM Figma design into a responsive web app and consume the
 
 - **Design:** Figma file `3ZBkhvV8tXj90xxro7LhTC`, page "Design System" (desktop 1440px)
 - **Live demo:** TODO (Vercel URL)
-- **Pages implemented:** Landing and About (copy partly provisional — see `TODO(copy)` in `src/features/*/data.ts`)
+- **Pages implemented:** Landing, About, Overview and Contact — static copy taken verbatim from Figma
 
-| Page     | Route       | Figma node | Status                  |
-| -------- | ----------- | ---------- | ----------------------- |
-| Landing  | `/`         | 14:16047   | ✅ built (copy pending) |
-| About    | `/about`    | 14:16510   | ✅ built (copy pending) |
-| Overview | `/overview` | 14:16894   | 🚧 placeholder          |
-| Contact  | `/contact`  | 14:16727   | 🚧 placeholder          |
+| Page     | Route       | Figma node | Status   |
+| -------- | ----------- | ---------- | -------- |
+| Landing  | `/`         | 14:16047   | ✅ built |
+| About    | `/about`    | 14:16510   | ✅ built |
+| Overview | `/overview` | 14:16894   | ✅ built |
+| Contact  | `/contact`  | 14:16727   | ✅ built |
 
 ## Tech stack
 
@@ -102,8 +102,14 @@ public/
 - **One async status per request.** `useApi` returns `loading | error | success | empty` plus
   `retry()`, and `AsyncContent` maps each status to `LoadingSkeleton` / `ErrorState` /
   `EmptyState`. Sections only describe the success case.
-- **Static navigation.** Nav links match `GET /api/navigation`, but they're kept in
-  `src/lib/site.ts` so the app shell renders instantly and never depends on the network.
+- **API text in the app shell is read on the server.** Navigation links (`/navigation`) and
+  community facts (`/stats`: university, tagline, Instagram handle) are fetched in
+  `src/lib/api/server.ts` with `"use cache"` + `cacheLife("hours")`, so they are part of the
+  prerendered static shell (no loading flash in the header/footer). If the API is down, the
+  fallbacks in `src/lib/site.ts` are used and cached only for `minutes`.
+- **Lists are fetched on the client with explicit states.** Tracks, formats, journey, FAQ,
+  values, roles and inquiry categories use `useApi` + `AsyncContent`, so every list has a
+  loading skeleton, an error state with retry and an empty state.
 - **API colors are not used for styling.** The API returns colors such as `#4285F4` / `#FBBC05`
   that differ slightly from the Figma tokens (`#4284F4` / `#F9AB00`), so track colors are mapped
   to tokens by id.
@@ -143,8 +149,10 @@ TODO — list the optional challenges attempted, e.g.:
 
 ## Known gaps / TODO
 
-- [ ] Gradient tokens (`Gradient/Blue 1`, `Green 1`, `Yellow 1`), shadows and the large type scale
-      (hero/section headings) still need to be read from Figma.
-- [ ] Export assets listed in `public/ASSETS.md`.
-- [ ] Build page sections and the mobile navigation menu.
+- [ ] Every text the API provides is rendered from the API; it differs from the Figma
+      placeholder copy in places (e.g. the API returns 4 formats where Figma shows 3).
+- [ ] The glass puzzle artworks are SVG exports; Figma's background-blur "glass" can't be
+      expressed in SVG, so their frosted rims render slightly differently than in Figma.
+- [ ] The API has no endpoint for contact messages, so the Contact form validates on the client
+      and then says plainly that online sending isn't available yet (pointing to Instagram).
 - [ ] Deploy to Vercel and add the live URL.

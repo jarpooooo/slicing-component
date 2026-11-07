@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Google_Sans } from "next/font/google";
+import { Google_Sans, Inter } from "next/font/google";
 
 import { Footer, Navigation } from "@/components/layout";
+import { getNavigation, getSiteInfo } from "@/lib/api/server";
 import { siteConfig } from "@/lib/site";
 
 import "./globals.css";
@@ -19,6 +20,14 @@ const googleSans = Google_Sans({
   adjustFontFallback: false,
 });
 
+// Figma sets step numerals ("01") and decorative glyphs (↓ ↗ + ◇ ?) in Inter.
+const inter = Inter({
+  variable: "--font-inter-family",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -34,9 +43,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  // Cached API reads (GET /api/navigation, /api/stats) — part of the static shell.
+  const [navItems, siteInfo] = await Promise.all([getNavigation(), getSiteInfo()]);
+
   return (
-    <html lang="en" className={`${googleSans.variable} h-full`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${googleSans.variable} ${inter.variable} h-full`}
+    >
       <body className="flex min-h-full flex-col">
         <a
           href="#main"
@@ -44,11 +60,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <Navigation />
+        <Navigation items={navItems} />
         <main id="main" className="flex-1">
           {children}
         </main>
-        <Footer />
+        <Footer navItems={navItems} siteInfo={siteInfo} />
       </body>
     </html>
   );

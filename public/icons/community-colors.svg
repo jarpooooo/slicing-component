@@ -1,0 +1,13 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="55" height="16" viewBox="0 0 55 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Community colors" clip-path="url(#clip0_0_92)">
+<circle id="Community dot" cx="8" cy="8" r="7" fill="#EA4335" stroke-width="2" stroke="white"/>
+<circle id="Community dot_2" cx="21" cy="8" r="7" fill="#F9AB00" stroke-width="2" stroke="white"/>
+<circle id="Community dot_3" cx="34" cy="8" r="7" fill="#34A853" stroke-width="2" stroke="white"/>
+<circle id="Community dot_4" cx="47" cy="8" r="7" fill="#4284F4" stroke-width="2" stroke="white"/>
+</g>
+<defs>
+<clipPath id="clip0_0_92">
+<rect width="55" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>

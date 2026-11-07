@@ -12,35 +12,29 @@ export const brandToneBg: Record<BrandTone, string> = {
   green: "bg-brand-green",
 };
 
-/** Text color per brand tone. Yellow/500 on white is ~1.9:1 — avoid it for text. */
-export const brandToneText: Record<BrandTone, string> = {
-  blue: "text-brand-blue",
-  red: "text-brand-red",
-  yellow: "text-brand-yellow",
-  green: "text-brand-green",
-};
-
-type EyebrowLabelProps = ComponentPropsWithoutRef<"p"> & {
-  tone?: BrandTone;
+/** Light tint per brand tone — illustration panels, program icons, solution tiles. */
+export const brandToneTint: Record<BrandTone, string> = {
+  blue: "bg-tint-blue",
+  red: "bg-tint-red",
+  yellow: "bg-tint-yellow",
+  green: "bg-tint-green",
 };
 
 /**
- * "Section label" from Figma (e.g. 14:16068): a 7px round marker, 10px gap, then
- * an uppercase label in a 15px line box.
- *
- * TODO(figma): confirm label color and per-section marker color (geometry only
- * was available).
+ * "Section label" from Figma (e.g. 14:16068): a 7px Blue/500 marker, 10px gap, then
+ * a 12px Medium uppercase label in #5F6368. Every section label in the file uses the
+ * same blue marker.
  */
-export function EyebrowLabel({ tone = "blue", className, children, ...props }: EyebrowLabelProps) {
+export function EyebrowLabel({ className, children, ...props }: ComponentPropsWithoutRef<"p">) {
   return (
     <p
       className={cn(
-        "inline-flex items-center gap-2.5 text-eyebrow font-medium tracking-wide text-fg-muted uppercase",
+        "inline-flex items-center gap-2.5 text-eyebrow font-medium text-fg-muted uppercase",
         className,
       )}
       {...props}
     >
-      <span aria-hidden className={cn("size-1.75 shrink-0 rounded-full", brandToneBg[tone])} />
+      <span aria-hidden className="size-1.75 shrink-0 rounded-full bg-brand-blue" />
       {children}
     </p>
   );

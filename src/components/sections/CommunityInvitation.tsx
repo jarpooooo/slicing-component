@@ -1,70 +1,50 @@
-import { Button, Container, EyebrowLabel, type BrandTone } from "@/components/ui";
-import { cn } from "@/lib/utils";
+import { Button, Container, EyebrowLabel } from "@/components/ui";
 
-type Action = { label: string; href: string };
+/** Copy is identical on Landing (14:16456), About (14:16673) and Overview (14:17175). */
+const invitation = {
+  eyebrow: "Your next chapter",
+  headingLines: ["Bring your curiosity.", "We’ll build from there."],
+  description: "Find a learning track, meet a collaborator, or start a conversation.",
+  primaryAction: { label: "Explore the overview", href: "/overview" },
+  secondaryAction: { label: "Talk to the community", href: "/contact" },
+} as const;
 
-export type CommunityInvitationProps = {
-  /** id for the heading; the section is labelled by it. Must be unique per page. */
-  headingId: string;
-  eyebrow: string;
-  eyebrowTone?: BrandTone;
-  heading: string;
-  description?: string;
-  primaryAction: Action;
-  secondaryAction?: Action;
-  className?: string;
+type CommunityInvitationProps = {
+  /** id for the heading; the section is labelled by it. */
+  headingId?: string;
 };
 
 /**
- * "Community invitation" CTA panel (Landing 14:16456, About 14:16673, Overview).
- * One component, content via props. Layout follows the Landing frame:
- * 1248px panel, 48px padding, copy (max 844px) left, actions right.
- *
- * TODO(figma): if the About/Overview frames differ visually from Landing, add a
- * `variant` prop here — the About frame could not be inspected (rate limit).
- *
- * Contrast: the panel uses the accent surface (Blue/50) with fg text
- * instead of the dark fill seen in the Figma render.
+ * "Community invitation" (Figma 14:16456): 64px vertical padding around a Blue/50
+ * panel — 32px radius, 48px padding, copy on the left, a 260px action column on the
+ * right with 48px between them. Stacks below lg.
  */
 export function CommunityInvitation({
-  headingId,
-  eyebrow,
-  eyebrowTone = "blue",
-  heading,
-  description,
-  primaryAction,
-  secondaryAction,
-  className,
+  headingId = "invitation-heading",
 }: CommunityInvitationProps) {
   return (
-    <section aria-labelledby={headingId} className={className}>
+    <section aria-labelledby={headingId}>
       <Container className="py-12 lg:py-16">
-        <div
-          className={cn(
-            "flex flex-col gap-10 rounded-card bg-surface-accent p-6 md:p-12",
-            "lg:flex-row lg:items-center lg:justify-between",
-          )}
-        >
-          <div className="flex max-w-211 flex-col items-start gap-4">
-            <EyebrowLabel tone={eyebrowTone}>{eyebrow}</EyebrowLabel>
-            <h2
-              id={headingId}
-              className="text-heading-sm font-bold text-balance text-fg md:text-heading-md"
-            >
-              {heading}
+        <div className="flex flex-col gap-8 rounded-panel bg-surface-accent p-6 md:p-12 lg:flex-row lg:items-center lg:gap-12">
+          <div className="flex flex-1 flex-col items-start gap-4">
+            <EyebrowLabel>{invitation.eyebrow}</EyebrowLabel>
+            <h2 id={headingId} className="text-heading-44 font-bold text-fg">
+              {invitation.headingLines.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
             </h2>
-            {description && <p className="text-body-md text-fg-muted">{description}</p>}
+            <p className="text-body-md text-fg-muted">{invitation.description}</p>
           </div>
 
-          <div className="flex shrink-0 flex-col items-start gap-4">
-            <Button href={primaryAction.href} withArrow>
-              {primaryAction.label}
+          <div className="flex shrink-0 flex-col items-start gap-4 lg:w-65">
+            <Button href={invitation.primaryAction.href} withArrow>
+              {invitation.primaryAction.label}
             </Button>
-            {secondaryAction && (
-              <Button href={secondaryAction.href} variant="link" withArrow>
-                {secondaryAction.label}
-              </Button>
-            )}
+            <Button href={invitation.secondaryAction.href} variant="link" withArrow>
+              {invitation.secondaryAction.label}
+            </Button>
           </div>
         </div>
       </Container>

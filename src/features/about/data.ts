@@ -1,137 +1,74 @@
-import { BookOpen, CodeXml, Heart, Users, type LucideIcon } from "lucide-react";
-
 import type { BrandTone } from "@/components/ui";
-import type { CommunityValue, ContributionRole } from "@/lib/api";
+import type { AssetName } from "@/lib/assets";
 
 /*
- * About page content (Figma frame 14:16510).
+ * About page copy — read from Figma frame "About - GDGoC UGM" (14:16510).
  *
- * Source tags:
- *   [brief] text given in the task brief
- *   [api]   text from the GDGoC UGM API (/values, /roles, /stats) — the API
- *           serves the same content as the design, so these are the best
- *           available match to the Figma copy
- *   TODO(copy) placeholder — the Figma MCP was rate-limited and no
- *              design-ref/about screenshots exist; replace with exact copy.
- *
- * Repeating content is typed with the API types, so switching a list to
- * `useApi(...)` later only changes where the array comes from.
+ * Values (GET /api/values) and participation roles (GET /api/roles) are fetched at
+ * runtime; this file holds the static copy around them and visual mappings by id.
+ * Multi-line headings keep the explicit line breaks from Figma as arrays.
  */
 
 // ---------- About introduction (14:16529) ----------
 
 export const aboutHeroContent = {
-  eyebrow: "About GDGoC UGM", // TODO(copy)
-  /** Two-line heading; the second line renders in blue. [brief: structure] */
-  headingLines: ["A community built", "on curiosity"], // TODO(copy)
-  description:
-    "Google Developer Groups on Campus Universitas Gadjah Mada is a student-led community where people from every faculty learn, build, and share technology together.", // TODO(copy)
-  yearLabel: "Since 2023", // [api] /stats founded_year
+  eyebrow: "About GDGoC UGM",
+  /** Second line renders in link blue. */
+  headingLines: ["Built by students.", "For what’s next."],
+  /** The university name between these comes from GET /api/stats. */
+  description: {
+    before: "We’re a community of learners and makers at ",
+    after: ", connected by curiosity and the belief that technology can do good.",
+  },
 } as const;
 
 // ---------- Our purpose (14:16603) ----------
 
 export const purposeContent = {
-  eyebrow: "Our purpose", // [brief: section name]
-  headingLead: "We believe", // TODO(copy)
-  /** Rendered as a blue quote inside the heading. [brief: structure] */
-  quote: "Learn together. Build together.", // [api] /stats tagline
+  eyebrow: "Why we come together",
+  lead: "Learning feels different when there’s someone to exchange ideas with, a problem you care about, and the space to give it a try.",
   paragraphs: [
-    "GDGoC UGM exists so that anyone curious about technology has a place to start — regardless of major, year, or experience.", // TODO(copy)
-    "We learn in small groups, build real projects, and share what we find, so every member leaves a little further than where they began.", // TODO(copy)
+    "That’s the spirit of Google Developer Groups on Campus at UGM. We create room for students to explore technology, develop practical skills, and learn from one another.",
+    "Our campus is the starting point. The questions we ask and the things we build can reach beyond it.",
   ],
 } as const;
 
 // ---------- Community values (14:16613) ----------
 
 export const valuesContent = {
-  eyebrow: "Community values", // [brief: section name]
-  heading: "What we value", // TODO(copy)
+  eyebrow: "What guides us",
+  heading: "Good technology starts with good company.",
 } as const;
 
-export type AboutValue = Pick<CommunityValue, "id" | "title" | "description"> & {
-  tone: BrandTone;
-  icon: LucideIcon;
+/**
+ * Accent color and Figma icon per value id from GET /api/values (14:16620–14:16638).
+ * The API also returns a hex color and an emoji; the design uses brand tokens and
+ * line icons instead.
+ */
+export const valueVisuals: Record<string, { tone: BrandTone; icon: AssetName }> = {
+  "stay-curious": { tone: "blue", icon: "iconBook" },
+  "make-room": { tone: "red", icon: "iconUsers" },
+  "learn-by-building": { tone: "yellow", icon: "iconCode" },
+  "give-something-back": { tone: "green", icon: "iconHeart" },
 };
 
-/** Order, accent colors and icons follow the brief: blue/red/yellow/green; book-open/users/code-xml/heart. */
-export const communityValues: AboutValue[] = [
-  {
-    id: "stay-curious",
-    title: "Stay curious", // [api]
-    description: "Ask the extra question. Be willing to learn something outside your comfort zone.", // [api]
-    tone: "blue",
-    icon: BookOpen,
-  },
-  {
-    id: "make-room",
-    title: "Make room", // [api]
-    description:
-      "Welcome different perspectives, respect each other, and help people find their voice.", // [api]
-    tone: "red",
-    icon: Users,
-  },
-  {
-    id: "learn-by-building",
-    title: "Learn by building", // [api]
-    description:
-      "Try a small experiment. Share the rough version. Let feedback guide what comes next.", // [api]
-    tone: "yellow",
-    icon: CodeXml,
-  },
-  {
-    id: "give-something-back",
-    title: "Give something back", // [api]
-    description: "Share a resource, explain what clicked, or help someone take their next step.", // [api]
-    tone: "green",
-    icon: Heart,
-  },
-];
+/** Used for values the mapping above doesn't know yet, in order. */
+export const fallbackValueTones: BrandTone[] = ["blue", "red", "yellow", "green"];
 
 // ---------- Ways to belong (14:16644) ----------
 
 export const waysToBelongContent = {
-  eyebrow: "Ways to belong", // [brief: section name]
-  heading: "There's more than one way to be part of it", // TODO(copy)
-  link: { label: "Let's talk about getting involved", href: "/contact" }, // [brief]
+  eyebrow: "People, not labels",
+  heading: "There’s more than one way to contribute.",
+  description:
+    "You can be learning one day and helping someone else the next. A community grows through both.",
+  link: { label: "Let’s talk about getting involved", href: "/contact" },
 } as const;
-
-export type WayToBelong = Pick<ContributionRole, "id" | "title" | "description">;
-
-export const waysToBelong: WayToBelong[] = [
-  {
-    id: "learner",
-    title: "Come as a learner", // [api]
-    description:
-      "Explore a topic, join a discussion, and ask the question that's been on your mind.", // [api]
-  },
-  {
-    id: "collaborator",
-    title: "Grow as a collaborator", // [api]
-    description:
-      "Work with people whose skills complement yours. Discover what you can build together.", // [api]
-  },
-  {
-    id: "contributor",
-    title: "Give back as a contributor", // [api]
-    description: "Share knowledge, support a learning session, or bring an idea for the community.", // [api]
-  },
-];
 
 // ---------- Community commitment (14:16668) ----------
 
 export const commitmentContent = {
-  heading: "A space where everyone can grow", // TODO(copy)
+  heading: "A space to learn. A responsibility to care.",
   description:
-    "We keep the community welcoming, respectful, and open — so the first question is never the last one.", // TODO(copy)
-} as const;
-
-// ---------- Community invitation (14:16673) ----------
-
-export const aboutInvitationContent = {
-  eyebrow: "Join the community", // TODO(copy)
-  heading: "Curious where to start?", // TODO(copy)
-  description: "Find the track that fits you, or reach out and we'll help you take the first step.", // TODO(copy)
-  primaryAction: { label: "Find your track", href: "/overview" }, // nav action label
-  secondaryAction: { label: "Contact the team", href: "/contact" }, // TODO(copy)
+    "We want every conversation and learning experience to be respectful, inclusive, and constructive. Be kind, give credit, and make room for people who are just getting started.",
 } as const;
