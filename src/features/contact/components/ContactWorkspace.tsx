@@ -12,10 +12,9 @@ import { ContactForm } from "./ContactForm";
 import { InquiryCategoryList } from "./InquiryCategoryList";
 
 /**
- * "Contact workspace" (Figma 14:16753): 80px bottom padding; a 456px inquiry guidance
- * column (32px gaps) and the contact form, 64px apart. The category cards and the
- * form's category select share one state, loaded from GET /api/inquiry-categories.
- * Figma shows the first category selected, so it is preselected once loaded.
+ * Contact workspace (Figma 14:16753). The category cards and the form's select
+ * share one state, loaded from GET /api/inquiry-categories. The first category
+ * starts selected, as in Figma.
  */
 type ContactWorkspaceProps = {
   /** From GET /api/stats → social.instagram */
@@ -42,7 +41,7 @@ export function ContactWorkspace({ instagramHandle, instagramUrl }: ContactWorks
             <InquiryCategoryList state={categories} selected={selected} onSelect={setPicked} />
           </div>
 
-          {/* Community updates (14:16778): Yellow/50 card, 24px radius, 26px padding */}
+          {/* Community updates (14:16778) */}
           <aside
             aria-labelledby="updates-heading"
             className="flex flex-col items-start gap-4 rounded-card bg-tint-yellow p-6.5"

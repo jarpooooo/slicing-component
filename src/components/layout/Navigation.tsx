@@ -23,7 +23,7 @@ type NavLinksProps = {
   onNavigate?: () => void;
 };
 
-/** Page links. Figma 14:16052: pill items, 20/14px padding, 8px gap. */
+/** Page links (Figma 14:16052) */
 function NavLinks({ items, pathname, className, linkClassName, onNavigate }: NavLinksProps) {
   return (
     <ul className={className}>
@@ -53,9 +53,8 @@ function NavLinks({ items, pathname, className, linkClassName, onNavigate }: Nav
 }
 
 /**
- * Site navigation — Figma "Navigation" (14:16048). Links come from GET /api/navigation.
- * Desktop (lg+): logo · page links · primary action in one 104px row.
- * Below lg: logo + hamburger toggling a disclosure panel with the same links.
+ * Main navigation (Figma 14:16048). Links come from GET /api/navigation. Below lg
+ * they move into a hamburger menu.
  */
 export function Navigation({ items }: { items: NavItem[] }) {
   const pathname = usePathname();

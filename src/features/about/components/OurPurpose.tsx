@@ -3,9 +3,8 @@ import { Container, EyebrowLabel } from "@/components/ui";
 import { purposeContent } from "../data";
 
 /**
- * "Our purpose" (Figma 14:16603): Neutrals/300 band, 80px padding, 400px title column
- * and the story column 96px apart. The heading's second line has a link-blue quote and
- * the third line a top-to-bottom gradient (#1967D2 from 58.654% → #6FACFF).
+ * Our purpose (Figma 14:16603). The heading's second line has a blue quote and the
+ * third a top-to-bottom gradient.
  */
 export function OurPurpose() {
   return (

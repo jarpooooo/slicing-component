@@ -1,47 +1,40 @@
 @import "tailwindcss";
 
 /*
- * Design tokens — source: Figma file 3ZBkhvV8tXj90xxro7LhTC, page "Design System"
- * (frames Landing 14:16047, About 14:16510, Overview 14:16894, Contact 14:16727),
- * desktop 1440px. Every value below was read from get_design_context / get_variable_defs.
- *
- * Provenance tags:
- *   [var]  = Figma variable
- *   [node] = value applied directly on Figma nodes (no variable bound)
- *
- * Components must use these tokens (bg-primary, text-fg-muted, rounded-card, ...)
- * and never raw hex values or arbitrary sizes that duplicate a token.
+ * Design tokens from Figma file 3ZBkhvV8tXj90xxro7LhTC (desktop frames, 1440px).
+ * Components use these utilities (bg-primary, text-fg-muted, rounded-card, ...)
+ * rather than raw hex values or arbitrary sizes.
  */
 
 @theme {
   /* Reset Tailwind's default palette so only design tokens are available. */
   --color-*: initial;
 
-  /* ---------- Palette ---------- */
-  --color-blue-50: #eaf2ff; /* [node] active nav item, blue tint panels */
-  --color-blue-300: #8ab4f8; /* [var] Blue/300 */
-  --color-blue-400: #6facff; /* [node] end stop of the "I made this." text gradient */
-  --color-blue-500: #4284f4; /* [var] Blue/500 */
-  --color-blue-700: #1967d2; /* [node] links, accent headline text, icons */
+  /* Palette */
+  --color-blue-50: #eaf2ff; /* active nav item, blue tint panels */
+  --color-blue-300: #8ab4f8; /* Blue/300 */
+  --color-blue-400: #6facff; /* end stop of the "I made this." text gradient */
+  --color-blue-500: #4284f4; /* Blue/500 */
+  --color-blue-700: #1967d2; /* links, accent headline text, icons */
 
-  --color-red-50: #fdedea; /* [node] red tint (solution tile, program icon) */
-  --color-red-500: #ea4335; /* [var] Red/500 */
+  --color-red-50: #fdedea; /* red tint (solution tile, program icon) */
+  --color-red-500: #ea4335; /* Red/500 */
 
-  --color-yellow-50: #fff7df; /* [node] warm tint panels */
-  --color-yellow-300: #fde293; /* [var] Yellow/300 */
-  --color-yellow-500: #f9ab00; /* [var] Yellow/500 */
+  --color-yellow-50: #fff7df; /* warm tint panels */
+  --color-yellow-300: #fde293; /* Yellow/300 */
+  --color-yellow-500: #f9ab00; /* Yellow/500 */
 
-  --color-green-50: #eaf5ed; /* [node] green tint panels */
-  --color-green-500: #34a853; /* [var] Green/500 */
+  --color-green-50: #eaf5ed; /* green tint panels */
+  --color-green-500: #34a853; /* Green/500 */
 
-  --color-neutral-100: #ffffff; /* [var] Neutral colors/100 */
-  --color-neutral-300: #f1f3f4; /* [var] Neutrals/300 */
-  --color-neutral-400: #dadce0; /* [node] borders, dividers */
-  --color-neutral-700: #5f6368; /* [node] body / secondary text */
-  --color-neutral-900: #242424; /* [node] headings */
-  --color-neutral-1000: #000000; /* [node] footer column titles, solution tile labels */
+  --color-neutral-100: #ffffff; /* Neutral colors/100 */
+  --color-neutral-300: #f1f3f4; /* Neutrals/300 */
+  --color-neutral-400: #dadce0; /* borders, dividers */
+  --color-neutral-700: #5f6368; /* body / secondary text */
+  --color-neutral-900: #242424; /* headings */
+  --color-neutral-1000: #000000; /* footer column titles, solution tile labels */
 
-  /* ---------- Semantic aliases (use these in components) ---------- */
+  /* Semantic aliases */
   --color-surface: var(--color-neutral-100);
   --color-surface-muted: var(--color-neutral-300);
   --color-surface-accent: var(--color-blue-50);
@@ -71,22 +64,21 @@
   --color-brand-green: var(--color-green-500);
 
   /*
-   * Figma variables "Gradient/Blue 1", "Gradient/Green 1", "Gradient/Yellow 1" have no
-   * readable value via the MCP; they are only used inside the exported glass artwork SVGs,
-   * so no CSS token is needed.
+   * The gradient variables (Gradient/Blue 1, Green 1, Yellow 1) only appear inside the
+   * exported artwork, so they don't need CSS tokens.
    */
 
-  /* ---------- Typography ---------- */
-  /* Figma font: "Google Sans" (Regular 400 / Medium 500 / Bold 700), loaded via next/font. */
+  /* Typography */
+  /* Google Sans 400/500/700, loaded with next/font in layout.tsx */
   --font-sans: var(--font-google-sans), ui-sans-serif, system-ui, sans-serif;
-  /* Inter — Landing journey numerals, section-nav arrows, inquiry/form glyphs. */
+  /* Inter: Landing step numerals, section-nav arrows and form glyphs */
   --font-inter: var(--font-inter-family), ui-sans-serif, system-ui, sans-serif;
 
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 700;
 
-  /* Body & UI text. "normal" = Figma line-height Auto. */
+  /* Body and UI text. "normal" matches Figma's Auto line height. */
   --text-overline: 11px; /* track theme, artwork caption */
   --text-overline--line-height: normal;
   --text-eyebrow: 12px; /* section label, footer note, table header */
@@ -114,7 +106,7 @@
   --text-lead-xl: 24px; /* About "Our purpose" lead paragraph */
   --text-lead-xl--line-height: 1.55;
 
-  /* Headings — Google Sans Bold, line-height 1.12. Named after their Figma size (px). */
+  /* Headings: Google Sans Bold, line height 1.12, named after their Figma size in px. */
   --text-heading-21: 21px;
   --text-heading-21--line-height: 1.12;
   --text-heading-24: 24px;
@@ -132,10 +124,7 @@
   --text-heading-32: 32px;
   --text-heading-32--line-height: 1.12;
 
-  /*
-   * Large headings are fluid: they hit the exact Figma size at the 1440px frame width
-   * and scale down (to a readable minimum) on smaller screens.
-   */
+  /* Large headings are fluid: the Figma size at 1440px, smaller on narrow screens. */
   --text-heading-36: clamp(1.75rem, 2.5vw, 2.25rem);
   --text-heading-36--line-height: 1.12;
   --text-heading-40: clamp(1.875rem, 2.78vw, 2.5rem);
@@ -149,16 +138,13 @@
   --text-display-80: clamp(2.75rem, 5.56vw, 5rem); /* Landing hero */
   --text-display-80--line-height: 1.05;
 
-  /* Step numerals ("01", "02", …) */
+  /* Step numerals ("01", "02", ...) */
   --text-numeral-38: clamp(2rem, 2.64vw, 2.375rem); /* Overview learning stages */
   --text-numeral-38--line-height: normal;
   --text-numeral-44: clamp(2.25rem, 3.06vw, 2.75rem); /* Landing journey */
   --text-numeral-44--line-height: normal;
 
-  /*
-   * Figma line-height "Auto" = the font's own metrics (CSS `normal`). Tailwind's
-   * built-in `leading-auto` is 1.5, so overrides use `leading-auto` instead.
-   */
+  /* Figma's "Auto" line height is the font's own metrics, i.e. CSS `normal`. */
   --leading-auto: normal;
 
   /* Decorative glyph sizes (inquiry category icon, project card mark) */
@@ -173,7 +159,7 @@
   --text-sticker: 23px;
   --text-sticker--line-height: normal;
 
-  /* ---------- Radius ---------- */
+  /* Radius */
   --radius-*: initial;
   --radius-xs: 2px; /* value accent bar */
   --radius-control: 8px; /* buttons, inputs, sticker */
@@ -185,23 +171,20 @@
   --radius-panel: 32px; /* artwork tiles, invitation panel */
   --radius-pill: 100px; /* nav item, chips, campus label */
 
-  /* ---------- Layout / spacing ---------- */
-  /* Spacing scale: Tailwind default (4px step). All observed Figma gaps/paddings
-     (6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 32, 36, 40, 48, 56, 64, 72, 80, 88, 96)
-     map onto it. */
-  --spacing-nav-x: 64px; /* [node] navigation horizontal padding */
-  --spacing-nav-h: 104px; /* [node] navigation height */
-  --spacing-control-h: 52px; /* [node] primary action height */
-  --spacing-input-h: 54px; /* [node] form input height */
-  --container-content: 1248px; /* [node] content width inside 1440 frame */
+  /* Layout. Spacing uses Tailwind's default scale; every Figma gap and padding maps onto it. */
+  --spacing-nav-x: 64px; /* navigation horizontal padding */
+  --spacing-nav-h: 104px; /* navigation height */
+  --spacing-control-h: 52px; /* primary action height */
+  --spacing-input-h: 54px; /* form input height */
+  --container-content: 1248px; /* content width inside 1440 frame */
 
-  /* ---------- Breakpoints ----------
-   * Design source is desktop 1440px; styles are authored mobile-first:
+  /*
+   * Breakpoints. The design only exists at 1440px; styles are mobile-first:
    *   base  < 640px   mobile
    *   sm   >= 640px   large mobile
    *   md   >= 768px   tablet
    *   lg   >= 1024px  desktop
-   *   xl   >= 1440px  design-width desktop (Figma frame)
+   *   xl   >= 1440px  Figma frame width
    */
   --breakpoint-sm: 40rem;
   --breakpoint-md: 48rem;
@@ -219,7 +202,7 @@
     @apply bg-surface font-sans text-body text-fg antialiased;
   }
 
-  /* Anchor targets (Overview section navigation) clear the page top a little. */
+  /* Leave a little space above in-page anchor targets (Overview section nav). */
   [id] {
     scroll-margin-top: 1.5rem;
   }

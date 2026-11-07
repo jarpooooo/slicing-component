@@ -10,8 +10,8 @@ type SectionProps = ComponentPropsWithoutRef<"section"> & {
 };
 
 /**
- * Page section wrapper: full-bleed <section> with a centered Container inside.
- * Vertical spacing differs per section in Figma, so it is passed via className.
+ * Full-width <section> with a Container inside. Vertical padding differs per
+ * section, so it comes in through className.
  */
 export function Section({ className, containerClassName, children, ...props }: SectionProps) {
   return (

@@ -6,14 +6,11 @@ import { cn } from "@/lib/utils";
 type AssetIconProps = {
   name: AssetName;
   className?: string;
-  /** Leave empty (default) for decorative icons; they are hidden from assistive tech. */
+  /** Leave empty for decorative icons, which are hidden from screen readers. */
   alt?: string;
 };
 
-/**
- * Renders a Figma-exported icon from /public at its intrinsic size.
- * Icons are decorative by default.
- */
+/** Figma-exported icon from /public at its intrinsic size. Decorative by default. */
 export function AssetIcon({ name, className, alt = "" }: AssetIconProps) {
   const asset = assets[name];
   return (

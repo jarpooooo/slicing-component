@@ -8,10 +8,8 @@ import { cn } from "@/lib/utils";
 import { overviewSections, type OverviewSectionId } from "../data";
 
 /**
- * "Overview section navigation" (Figma 14:16944): a bordered strip (24px vertical
- * padding) of in-page links 48px apart — 15px label + a link-blue ↓.
- * The link for the section currently in view is Bold link-blue (Figma shows the first
- * one active); the rest are Regular muted.
+ * In-page section links (Figma 14:16944). The link for the section in view is bold
+ * and blue; Figma shows the first one active.
  */
 export function SectionNav() {
   const [active, setActive] = useState<OverviewSectionId>(overviewSections[0].id);

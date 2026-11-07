@@ -10,10 +10,7 @@ type ValueCardProps = {
   icon: AssetName;
 };
 
-/**
- * "Value" card (Figma 14:16620): 1px border, 24px radius, 26px padding, 22px gaps —
- * a 36×4 brand-colored accent bar, 24px link-blue icon, 24px title and description.
- */
+/** Value card (Figma 14:16620) */
 export function ValueCard({ value, tone, icon }: ValueCardProps) {
   return (
     <Card className="h-full items-start gap-5.5 p-6.5">

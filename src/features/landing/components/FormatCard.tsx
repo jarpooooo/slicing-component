@@ -4,11 +4,7 @@ import { humanizeSlug } from "@/lib/utils";
 
 import { formatIcons } from "../data";
 
-/**
- * "Program format" card (Figma 14:16341): white, 24px radius, 32px padding, 20px gaps —
- * 24px icon, 28px name, description, divider and a 13px Medium link-blue detail line.
- * Text from GET /api/formats; the detail line shows the format's `cta`.
- */
+/** Format card (Figma 14:16341). The detail line shows the format's `cta`. */
 export function FormatCard({ format }: { format: LearningFormat }) {
   return (
     <article className="flex h-full flex-col items-start gap-5 rounded-card bg-surface p-8">

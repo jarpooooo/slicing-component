@@ -2,11 +2,7 @@ import { Button, Container, EyebrowLabel } from "@/components/ui";
 
 import { startingPointContent } from "../data";
 
-/**
- * "Starting point guidance" (Figma 14:17163): Yellow/50 band, 56px vertical padding;
- * a 460px title column (16px gaps, 36px heading) and the copy column (20px gaps)
- * 64px apart.
- */
+/** Starting point guidance (Figma 14:17163) */
 export function StartingPoint() {
   return (
     <section

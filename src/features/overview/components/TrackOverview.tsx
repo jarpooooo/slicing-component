@@ -6,9 +6,8 @@ import { outcomesContent, trackOverviewContent } from "../data";
 import { OutcomesTable } from "./OutcomesTable";
 
 /**
- * "Learning track overview" (Figma 14:16957, 80px padding, 36px gap) followed by
- * "Learning outcomes" (14:17061, 80px bottom padding, 32px gap): track cards and a
- * comparison table, both from GET /api/tracks.
+ * Track overview (Figma 14:16957) and learning outcomes (14:17061): track cards and
+ * a comparison table, both from GET /api/tracks.
  */
 export function TrackOverview() {
   return (

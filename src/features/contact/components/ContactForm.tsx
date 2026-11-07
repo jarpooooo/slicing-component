@@ -37,7 +37,7 @@ function validate(values: Values, category: string, consent: boolean): Errors {
   return errors;
 }
 
-/** Shared input look — Figma "Input" (14:16796): white, 1px border, 8px radius, 16px padding. */
+/** Shared input styles (Figma 14:16796) */
 const controlClass =
   "w-full rounded-control border bg-surface px-4 text-control text-fg placeholder:text-fg-muted transition-colors focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-primary disabled:cursor-not-allowed";
 
@@ -53,12 +53,11 @@ type ContactFormProps = {
 };
 
 /**
- * "Contact form" (Figma 14:16788): Neutrals/300 panel, 24px radius, 36px padding,
- * 24px between rows. Client-side validation with inline, announced errors.
+ * Contact form (Figma 14:16788) with client-side validation and inline errors.
  *
- * The GDGoC UGM API is read-only (no endpoint accepts messages), so a valid form is
- * not sent anywhere. The confirmation says so plainly and points to Instagram, the
- * channel the API provides. TODO: POST the payload once an endpoint exists.
+ * The API is read-only, so a valid submission isn't sent anywhere. The confirmation
+ * says so and points to Instagram, the contact channel the API provides.
+ * TODO: POST the payload once an endpoint exists.
  */
 export function ContactForm({
   categories,
@@ -309,7 +308,7 @@ type FieldProps = {
   children: ReactNode;
 };
 
-/** "Form field" (Figma 14:16794): 14px Medium label, control 10px below. */
+/** Form field (Figma 14:16794): label above the control. */
 function Field({ label, htmlFor, required, error, errorId, children }: FieldProps) {
   return (
     <div className="flex flex-col gap-2.5 [&_input]:h-input-h [&_textarea]:h-36.5 [&_textarea]:resize-y [&_textarea]:py-4">

@@ -8,10 +8,7 @@ import { cn, humanizeSlug } from "@/lib/utils";
 
 import { programFormatsContent, programFormatVisuals } from "../data";
 
-/**
- * "Program formats" (Figma 14:17087): Neutrals/300 band, 80px padding, 36px gap,
- * program cards in two columns (24px gaps). Formats come from GET /api/formats.
- */
+/** Program formats (Figma 14:17087): two columns of cards from GET /api/formats. */
 export function ProgramFormats() {
   const formats = useApi("formats", (signal) => api.getFormats({ signal }));
 
@@ -51,11 +48,7 @@ export function ProgramFormats() {
   );
 }
 
-/**
- * "Program card" (14:17095): white, 24px radius, 28px padding; a 52px tinted icon tile
- * (14px radius) and the description column 24px apart — 27px name, description and a
- * 13px Medium link-blue "Best for" line, 14px apart.
- */
+/** Program card (Figma 14:17095) */
 function ProgramCard({ format }: { format: LearningFormat }) {
   const visual = programFormatVisuals[format.id];
 

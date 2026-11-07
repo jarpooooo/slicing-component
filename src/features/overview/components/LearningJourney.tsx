@@ -7,11 +7,7 @@ import { api } from "@/lib/api";
 
 import { learningJourneyContent } from "../data";
 
-/**
- * "Learning journey" (Figma 14:17128): 80px padding, 40px gap; four learning stages
- * 32px apart — 38px Bold link-blue numeral, divider, 26px stage name and description,
- * 20px apart. Stages come from GET /api/journey.
- */
+/** Learning journey (Figma 14:17128). Stages come from GET /api/journey. */
 export function LearningJourney() {
   const journey = useApi("journey", (signal) => api.getJourney({ signal }));
 

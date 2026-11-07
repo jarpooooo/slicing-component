@@ -1,7 +1,6 @@
-// Verifies every asset in src/lib/assets.ts exists in /public with the exact same
-// letter casing (Vercel is case-sensitive) and that width/height match the file
-// (SVG root attributes, or half the pixel size of a 2x WebP).
-// Also lists files in public/icons and public/images that are not registered yet.
+// Checks that every asset in src/lib/assets.ts exists in /public with the same
+// letter case (Vercel's filesystem is case-sensitive) and that its width/height
+// match the file. Also warns about files that aren't registered yet.
 import { readFileSync, readdirSync } from "node:fs";
 import { dirname, join, basename } from "node:path";
 
@@ -12,8 +11,8 @@ const entries = [
 ].map(([, name, src, width, height]) => ({ name, src, width: +width, height: +height }));
 
 /**
- * CSS size of an asset: SVG root width/height, or half the pixel size of a WebP
- * (raster exports are 2x). Returns null when the size can't be read.
+ * Size of an asset in CSS pixels: the SVG root width/height, or half the pixel
+ * size of a 2x WebP. Returns null if it can't be read.
  */
 function readSize(file) {
   if (file.endsWith(".svg")) {

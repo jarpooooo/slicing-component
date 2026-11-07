@@ -19,7 +19,7 @@ type AsyncContentProps<T> = {
 };
 
 /**
- * Renders the right UI for each `useApi` status so sections only describe the
+ * Picks the UI for each `useApi` status, so a section only has to render the
  * success case:
  *
  * <AsyncContent state={tracks} loading={<LoadingSkeleton variant="cards" />}>

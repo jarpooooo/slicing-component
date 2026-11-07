@@ -1,6 +1,6 @@
 import { Button, Container, EyebrowLabel } from "@/components/ui";
 
-/** Copy is identical on Landing (14:16456), About (14:16673) and Overview (14:17175). */
+/** Same copy on Landing (14:16456), About (14:16673) and Overview (14:17175). */
 const invitation = {
   eyebrow: "Your next chapter",
   headingLines: ["Bring your curiosity.", "We’ll build from there."],
@@ -14,11 +14,7 @@ type CommunityInvitationProps = {
   headingId?: string;
 };
 
-/**
- * "Community invitation" (Figma 14:16456): 64px vertical padding around a Blue/50
- * panel — 32px radius, 48px padding, copy on the left, a 260px action column on the
- * right with 48px between them. Stacks below lg.
- */
+/** Community invitation panel (Figma 14:16456). Stacks below lg. */
 export function CommunityInvitation({
   headingId = "invitation-heading",
 }: CommunityInvitationProps) {

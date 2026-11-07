@@ -8,12 +8,8 @@ import { AssetIcon } from "./AssetIcon";
 type ButtonVariant = "primary" | "secondary" | "link";
 
 /**
- * Variant styles from Figma:
- * - primary: "Action" (14:16061) — Blue/500 fill, transparent 1px border, 52px tall,
- *   24px x-padding, 16px gap, 8px radius, 16px Medium white label, 20px white arrow.
- * - secondary: hero second action (14:16078) — same geometry, white fill,
- *   #DADCE0 border, link-blue label and arrow.
- * - link: "Text link" (14:16268) — 16px Medium link-blue label, 12px gap, 20px blue arrow.
+ * Variants from Figma: primary is "Action" (14:16061), secondary is the second hero
+ * action (14:16078) and link is "Text link" (14:16268).
  */
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
@@ -28,7 +24,7 @@ const baseClasses =
 
 type CommonProps = {
   variant?: ButtonVariant;
-  /** Show the trailing arrow used by every action in the design. */
+  /** Adds the trailing arrow. */
   withArrow?: boolean;
   className?: string;
   children: ReactNode;

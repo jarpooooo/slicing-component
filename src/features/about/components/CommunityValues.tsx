@@ -10,9 +10,8 @@ import { fallbackValueTones, valuesContent, valueVisuals } from "../data";
 import { ValueCard } from "./ValueCard";
 
 /**
- * "Community values" (Figma 14:16613): 88px padding, intro and the value cards
- * (24px gap) 40px apart. Values come from GET /api/values.
- * 4 columns on desktop, 2 on tablet, 1 on mobile.
+ * Community values (Figma 14:16613) from GET /api/values. Four columns on desktop,
+ * two on tablet, one on mobile.
  */
 export function CommunityValues() {
   const values = useApi("values", (signal) => api.getValues({ signal }));

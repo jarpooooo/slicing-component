@@ -3,15 +3,12 @@ import type { AssetName } from "@/lib/assets";
 import { siteConfig } from "@/lib/site";
 
 /*
- * Landing page copy — read from Figma frame "Landing - GDGoC UGM" (14:16047).
- *
- * Repeating content (tracks, formats, journey, FAQ) is fetched from the GDGoC UGM API
- * at runtime; this file holds the static copy around it and visual mappings by id.
- *
- * Multi-line headings keep the explicit line breaks from Figma as arrays.
+ * Landing page copy (Figma 14:16047). Tracks, formats, the journey and the FAQ come
+ * from the API; this file has the copy around them and the visuals per id.
+ * Headings that break over several lines in Figma are stored as arrays.
  */
 
-// ---------- Hero (14:16065) ----------
+// Hero (14:16065)
 
 export const heroContent = {
   eyebrow: `GDGoC UGM • ${siteConfig.academicYear}`,
@@ -34,7 +31,7 @@ export const communityPromises: { title: string; tone: BrandTone }[] = [
   { title: "Build with purpose", tone: "green" },
 ];
 
-// ---------- Discover learning (14:16203) ----------
+// Discover learning (14:16203)
 
 export const introContent = {
   eyebrow: "A campus. A community.",
@@ -65,7 +62,7 @@ export const formatIcons: Record<string, AssetName> = {
   "knowledge-sharing": "iconLightbulb",
 };
 
-// ---------- Build and belong (14:16362) ----------
+// Build and belong (14:16362)
 
 export const projectContent = {
   eyebrow: "Build something that matters",

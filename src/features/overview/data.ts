@@ -2,14 +2,12 @@ import type { BrandTone } from "@/components/ui";
 import type { AssetName } from "@/lib/assets";
 
 /*
- * Overview page copy — read from Figma frame "Overview - GDGoC UGM" (14:16894).
- *
- * Tracks, formats and the learning journey come from the API (/tracks, /formats,
- * /journey). Figma-only details that the API has no field for (format "Best for"
- * line, icon tint, the outcomes table) are mapped here by id.
+ * Overview page copy (Figma 14:16894). Tracks, formats and the journey come from the
+ * API. Details it has no field for (the "Best for" line, icon tints, the outcomes
+ * table) are mapped here by id.
  */
 
-// ---------- Overview introduction (14:16913) ----------
+// Overview introduction (14:16913)
 
 export const overviewHeroContent = {
   eyebrow: "Overview • Programs & learning tracks",
@@ -19,7 +17,7 @@ export const overviewHeroContent = {
     "Explore how research, creativity, and development connect. Start with one interest. Grow through practice and the people around you.",
 } as const;
 
-// ---------- Section navigation (14:16944) ----------
+// Section navigation (14:16944)
 
 export const overviewSections = [
   { id: "learning-tracks", label: "Learning tracks" },
@@ -30,7 +28,7 @@ export const overviewSections = [
 
 export type OverviewSectionId = (typeof overviewSections)[number]["id"];
 
-// ---------- Learning track overview (14:16957) ----------
+// Learning track overview (14:16957)
 
 export const trackOverviewContent = {
   eyebrow: "Explore your interests",
@@ -39,7 +37,7 @@ export const trackOverviewContent = {
     "These pathways are starting points, not boxes. Follow one deeply or bring different skills together.",
 } as const;
 
-// ---------- Learning outcomes (14:17061) ----------
+// Learning outcomes (14:17061)
 // Rows come from GET /api/tracks: name, skills and what_you_do.
 
 export const outcomesContent = {
@@ -49,7 +47,7 @@ export const outcomesContent = {
     "Illustrative learning outcomes. Topics and opportunities are shared through community updates.",
 } as const;
 
-// ---------- Program formats (14:17087) ----------
+// Program formats (14:17087)
 
 export const programFormatsContent = {
   eyebrow: "Ways to learn",
@@ -68,14 +66,14 @@ export const programFormatVisuals: Record<
   "knowledge-sharing": { icon: "iconLightbulb", tone: "red", bestFor: "Exchanging perspectives" },
 };
 
-// ---------- Learning journey (14:17128) ----------
+// Learning journey (14:17128)
 
 export const learningJourneyContent = {
   eyebrow: "Progress, not perfection",
   heading: "A journey you can keep building on.",
 } as const;
 
-// ---------- Starting point guidance (14:17163) ----------
+// Starting point guidance (14:17163)
 
 export const startingPointContent = {
   eyebrow: "Start where you are",

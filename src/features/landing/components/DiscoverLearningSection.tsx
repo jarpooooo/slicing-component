@@ -6,16 +6,13 @@ import { introContent, learningFormatsContent, trackDiscoveryContent } from "../
 
 import { FormatGrid } from "./FormatGrid";
 
-/**
- * "Discover learning" (Figma 14:16203): community introduction, track discovery
- * (cards from GET /api/tracks) and learning formats (cards from GET /api/formats).
- */
+/** Discover learning (Figma 14:16203). Tracks and formats come from the API. */
 export async function DiscoverLearningSection() {
   const { university } = await getSiteInfo(); // GET /api/stats
 
   return (
     <>
-      {/* Community introduction (14:16204): 490px heading column, story column, 96px gap */}
+      {/* Community introduction (14:16204) */}
       <section aria-labelledby="intro-heading">
         <Container className="grid gap-10 py-16 lg:grid-cols-[490px_1fr] lg:gap-16 lg:py-22 xl:gap-24">
           <div className="flex flex-col items-start gap-5">
@@ -50,7 +47,7 @@ export async function DiscoverLearningSection() {
         </Container>
       </section>
 
-      {/* Track discovery (14:16224): 16px top / 88px bottom padding, 36px gap */}
+      {/* Track discovery (14:16224) */}
       <section aria-labelledby="tracks-heading">
         <Container className="flex flex-col gap-9 pt-4 pb-16 lg:pb-22">
           <div className="flex flex-col items-start gap-6 lg:flex-row lg:items-end lg:justify-between">
@@ -68,7 +65,7 @@ export async function DiscoverLearningSection() {
         </Container>
       </section>
 
-      {/* Learning formats (14:16333): Neutrals/300 band, 80px padding, 40px gap */}
+      {/* Learning formats (14:16333) */}
       <section aria-labelledby="formats-heading" className="bg-surface-muted">
         <Container className="flex flex-col gap-10 py-16 lg:py-20">
           <SectionIntro

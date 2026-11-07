@@ -8,7 +8,7 @@ import { TrackCard } from "./TrackCard";
 
 const gridClass = "grid gap-6 md:grid-cols-2 lg:grid-cols-3";
 
-/** Learning tracks from GET /api/tracks with loading / error / empty states. */
+/** Tracks from GET /api/tracks, with loading, error and empty states. */
 export function TrackGrid() {
   const tracks = useApi("tracks", (signal) => api.getTracks({ signal }));
 

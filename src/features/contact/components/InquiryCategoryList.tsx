@@ -12,10 +12,8 @@ type InquiryCategoryListProps = {
 };
 
 /**
- * "Inquiry category" cards (Figma 14:16758): 16px radius, 20px padding, 18px gap —
- * a 25px link-blue glyph, 17px Medium label and 14px description.
- * The selected card has the Blue/50 fill (as in Figma), the others a #DADCE0 border.
- * Picking a card sets the form's category; it behaves as a toggle button group.
+ * Inquiry category cards (Figma 14:16758). They act as a toggle group: picking a
+ * card sets the form's category, and the selected card gets the blue fill.
  */
 export function InquiryCategoryList({ state, selected, onSelect }: InquiryCategoryListProps) {
   return (

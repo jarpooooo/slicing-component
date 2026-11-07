@@ -15,16 +15,14 @@ const focusRing =
 type FooterProps = {
   /** GET /api/navigation */
   navItems: NavItem[];
-  /** GET /api/stats — handle, tagline and university name. */
+  /** GET /api/stats: handle, tagline and university name. */
   siteInfo: SiteInfo;
 };
 
 /**
- * Site footer — Figma "Footer" (14:16473).
- * Neutrals/300 band, 56px top / 28px bottom padding, rows 40px apart.
- * Desktop: identity (480px) · Explore (150px) · Keep in the loop (260px) spread
- * across 1248px, then divider, footer note and the four-color brand signature.
- * Tablet: identity on top, link groups side by side. Mobile: single column.
+ * Footer (Figma 14:16473): identity, Explore and "Keep in the loop", then the
+ * divider, footer note and brand signature. The link groups sit side by side on
+ * tablet and stack on mobile.
  */
 export function Footer({ navItems, siteInfo }: FooterProps) {
   const { footer } = siteConfig;

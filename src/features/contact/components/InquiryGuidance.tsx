@@ -4,11 +4,7 @@ import { guidanceContent } from "../data";
 
 import { InquiryTips } from "./InquiryTips";
 
-/**
- * "Before you send" (Figma 14:16834): top border, 72px padding; a 420px "helpful
- * information" column (20px gaps, 40px heading) and the inquiry tips from
- * GET /api/inquiry-categories, 80px apart.
- */
+/** "Before you send" (Figma 14:16834). Tips come from GET /api/inquiry-categories. */
 export function InquiryGuidance() {
   return (
     <section aria-labelledby="guidance-heading" className="border-t border-border">

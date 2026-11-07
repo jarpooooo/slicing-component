@@ -2,10 +2,7 @@ import type { ComponentPropsWithoutRef } from "react";
 
 import { cn } from "@/lib/utils";
 
-/**
- * "Attribute" chip from Figma "Community attributes" (14:16218): Neutrals/300 fill,
- * 14px × 8px padding, pill shape, 13px Bold muted label.
- */
+/** Attribute chip (Figma 14:16218) */
 export function Chip({ className, ...props }: ComponentPropsWithoutRef<"span">) {
   return (
     <span

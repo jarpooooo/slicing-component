@@ -4,11 +4,8 @@ import { cn } from "@/lib/utils";
 import { projectContent } from "../data";
 
 /**
- * "Example project artwork" (Figma 14:16364, 592px wide): Yellow/50 panel, 32px radius,
- * 40px padding, 24px gaps — header, white "campus project preview" card (16px radius,
- * 26px padding) with browser dots, a 32px heading, three tinted solution tiles and a
- * caption line. Purely illustrative, so the preview is aria-hidden; the caption stays
- * readable.
+ * Example project artwork (Figma 14:16364). It's only illustrative, so the preview
+ * card is aria-hidden and screen readers get the caption.
  */
 export function ProjectArtwork() {
   const { artwork } = projectContent;

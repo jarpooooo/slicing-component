@@ -5,10 +5,7 @@ import { useEffect } from "react";
 import { ErrorState } from "@/components/states";
 import { Section } from "@/components/ui";
 
-/**
- * Route-level error boundary for every page under the root layout.
- * Next.js 16 passes `retry` (re-fetches and re-renders the segment).
- */
+/** Error boundary for every route under the root layout. `retry` re-renders the segment. */
 export default function RouteError({ error, retry }: { error: unknown; retry: () => void }) {
   useEffect(() => {
     console.error(error);

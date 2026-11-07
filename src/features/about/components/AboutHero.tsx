@@ -7,11 +7,7 @@ import { siteConfig } from "@/lib/site";
 
 import { aboutHeroContent } from "../data";
 
-/**
- * "About introduction" (Figma 14:16529): 80px vertical padding, 720px headline column
- * (26px gaps) and the 464×400 community mark artwork, 64px apart.
- * Below lg the artwork stacks under the copy.
- */
+/** About intro (Figma 14:16529). The artwork drops below the copy under lg. */
 export async function AboutHero() {
   const [firstLine, secondLine] = aboutHeroContent.headingLines;
   const { university } = await getSiteInfo(); // GET /api/stats

@@ -7,15 +7,15 @@ import { siteConfig } from "@/lib/site";
 
 import "./globals.css";
 
-// Figma font family: "Google Sans" (Regular / Medium / Bold).
-// Exposed as --font-google-sans and mapped to --font-sans in globals.css.
+// Google Sans is the Figma font. It's exposed as --font-google-sans and mapped to
+// --font-sans in globals.css.
 const googleSans = Google_Sans({
   variable: "--font-google-sans",
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   display: "swap",
-  // Next.js has no metric overrides for Google Sans, so declare the fallback
-  // stack explicitly instead of letting it try (and warn) to generate one.
+  // Next.js has no metric overrides for Google Sans, so set the fallback stack
+  // here instead of letting it try to generate one (and warn).
   fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
   adjustFontFallback: false,
 });
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
-  // Cached API reads (GET /api/navigation, /api/stats) — part of the static shell.
+  // Cached API reads (GET /api/navigation, /api/stats), prerendered with the shell.
   const [navItems, siteInfo] = await Promise.all([getNavigation(), getSiteInfo()]);
 
   return (

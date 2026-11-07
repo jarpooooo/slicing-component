@@ -16,9 +16,9 @@ import type {
 const DEFAULT_API_URL = "https://gdgoc-ugm-api.vercel.app/api";
 
 /**
- * Base URL from NEXT_PUBLIC_API_URL (see .env.example). Falls back to the public
- * API so the app still runs without a local .env file.
- * Must be read as a literal `process.env.NEXT_PUBLIC_*` so Next.js can inline it.
+ * Base URL from NEXT_PUBLIC_API_URL, falling back to the public API so the app runs
+ * without a .env file. It has to be read as a literal `process.env.NEXT_PUBLIC_*`
+ * for Next.js to inline it.
  */
 export const API_BASE_URL = (process.env.NEXT_PUBLIC_API_URL || DEFAULT_API_URL).replace(
   /\/+$/,
@@ -92,7 +92,7 @@ async function request<T>(path: string, { signal, searchParams }: RequestOptions
   return body.data as T;
 }
 
-// ---------- Endpoints ----------
+// Endpoints
 
 export const api = {
   getTracks: (options?: RequestOptions) => request<Track[]>("/tracks", options),

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     "Built by students. For what’s next. GDGoC Universitas Gadjah Mada is a community of learners and makers connected by curiosity.",
 };
 
-/** About page (Figma 14:16510). Navigation and Footer come from the root layout. */
+/** About (Figma 14:16510) */
 export default function AboutPage() {
   return (
     <>

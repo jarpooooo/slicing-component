@@ -7,9 +7,8 @@ type ContainerProps<T extends ElementType> = {
 } & ComponentPropsWithoutRef<T>;
 
 /**
- * Centers content at the Figma content width (1248px). `box-content` keeps the
- * content box at 1248px while the side padding only matters below ~1440px, so at
- * the design width the inset is exactly 96px like the Figma frame.
+ * Centers content at 1248px. With `box-content` the side padding sits outside that
+ * width, so at 1440px the inset is 96px, as in Figma.
  */
 export function Container<T extends ElementType = "div">({
   as,

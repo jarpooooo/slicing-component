@@ -1,9 +1,9 @@
 /*
- * Contact page copy — read from Figma frame "Contact - GDGoC UGM" (14:16727).
- * Inquiry categories (label, description, glyph) come from GET /api/inquiry-categories.
+ * Contact page copy (Figma 14:16727). Inquiry categories come from
+ * GET /api/inquiry-categories.
  */
 
-// ---------- Contact introduction (14:16746) ----------
+// Contact introduction (14:16746)
 
 export const contactHeroContent = {
   eyebrow: "Contact • Let’s connect",
@@ -14,7 +14,7 @@ export const contactHeroContent = {
     "A question, a collaboration, or an idea for the community? Tell us what’s on your mind.",
 } as const;
 
-// ---------- Inquiry guidance (14:16754) ----------
+// Inquiry guidance (14:16754)
 
 export const inquiryContent = {
   heading: "What brings you here?",
@@ -26,7 +26,7 @@ export const communityUpdatesContent = {
   heading: "Looking for community updates?",
 } as const;
 
-// ---------- Contact form (14:16788) ----------
+// Contact form (14:16788)
 
 export const contactFormContent = {
   heading: "Send us a message",
@@ -57,16 +57,16 @@ export const contactFormContent = {
   privacyNote: "Please don’t include passwords or sensitive personal information.",
 } as const;
 
-// ---------- Before you send (14:16834) ----------
+// Before you send (14:16834)
 
 export const guidanceContent = {
   eyebrow: "A little guidance",
   headingLines: ["Help us understand", "your idea."],
   link: { label: "Explore the programs first", href: "/overview" },
   /**
-   * Tips are the `guidance` text of GET /api/inquiry-categories. Titles follow Figma
-   * per category id; a guidance that opens with its own question ("Not sure which
-   * category fits?") uses that question as the title.
+   * Tip titles per category id, from Figma. The tip text is the category's
+   * `guidance`; if it opens with its own question ("Not sure which category
+   * fits?"), that question becomes the title.
    */
   tipTitles: {
     "joining-learning": "For learning questions",

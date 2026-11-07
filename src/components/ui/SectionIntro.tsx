@@ -18,9 +18,8 @@ type SectionIntroProps = {
 };
 
 /**
- * "Section introduction" from Figma (e.g. 14:16226, 14:16334): section label,
- * 48px Bold heading and an optional 18px description, 18px apart. Width 800px.
- * Callers can change the gap (some intros use 20–22px) through className.
+ * Section intro (Figma 14:16226): label, heading and an optional description.
+ * A few sections use a 20-22px gap, which callers pass through className.
  */
 export function SectionIntro({
   eyebrow,

@@ -11,10 +11,8 @@ type FaqItemProps = {
 };
 
 /**
- * "FAQ item" (Figma 14:16435): 20px Medium question with a 24px link-blue disclosure
- * chevron (24px gap), 16px answer and a divider, 14px apart.
- * Accessible accordion item: a real <button> with aria-expanded/aria-controls and a
- * labelled region; native Enter/Space toggle it.
+ * FAQ item (Figma 14:16435). The question is a <button> with aria-expanded and
+ * aria-controls, and the answer is a labelled region.
  */
 export function FaqItem({ faq, isOpen, onToggle, id }: FaqItemProps) {
   const triggerId = `${id}-trigger`;

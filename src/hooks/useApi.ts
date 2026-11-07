@@ -31,12 +31,12 @@ function toApiError(error: unknown): ApiError {
 }
 
 /**
- * Fetch data on the client and expose a single status:
- * `loading | error | success | empty`, plus `retry()`.
+ * Fetches on the client and returns one status (`loading`, `error`, `success`
+ * or `empty`) plus `retry()`.
  *
- * @param key     Stable cache key; the request re-runs whenever it changes
- *                (include any arguments, e.g. `faqs:${category}`).
- * @param fetcher Receives an AbortSignal; usually one of the `api.*` functions.
+ * @param key     The request re-runs when this changes, so include any arguments
+ *                (e.g. `faqs:${category}`).
+ * @param fetcher Gets an AbortSignal. Usually one of the `api.*` functions.
  *
  * @example
  * const tracks = useApi("tracks", (signal) => api.getTracks({ signal }));
@@ -68,8 +68,8 @@ export function useApi<T>(
 
   const retry = useCallback(() => setAttempt((n) => n + 1), []);
 
-  // Anything not settled for the *current* request is still loading — this also
-  // covers key changes and retries without a synchronous setState in the effect.
+  // Anything not settled for the current request is still loading. That also covers
+  // key changes and retries without calling setState inside the effect.
   if (!settled || settled.requestId !== requestId) {
     return { status: "loading", data: undefined, error: undefined, retry };
   }

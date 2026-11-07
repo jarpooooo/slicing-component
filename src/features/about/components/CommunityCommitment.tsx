@@ -5,10 +5,7 @@ import { assets } from "@/lib/assets";
 
 import { commitmentContent } from "../data";
 
-/**
- * "Community commitment" (Figma 14:16668): Yellow/50 band, 56px vertical padding,
- * 72px yellow spark, 64px gap, 32px heading and an 18px paragraph 14px apart.
- */
+/** Community commitment band (Figma 14:16668) */
 export function CommunityCommitment() {
   return (
     <section aria-labelledby="commitment-heading" className="bg-tint-yellow">

@@ -7,10 +7,8 @@ import { communityPromises, heroContent } from "../data";
 import { HeroArtwork } from "./HeroArtwork";
 
 /**
- * "Welcome to the community" (Figma 14:16065).
- * Desktop: hero copy (620px) and artwork (620×530) with a 40px gap; padding
- * 72/64/64/96px, so the row is 32px wider than the 1248px content column on the
- * right. Then the "Community promise" strip between two borders.
+ * Hero (Figma 14:16065). On desktop the copy and artwork sit side by side, and the
+ * row runs 32px past the content column on the right to match the frame's padding.
  * Below lg the artwork stacks under the copy.
  */
 export async function HeroSection() {
@@ -55,7 +53,7 @@ export async function HeroSection() {
         </div>
       </Container>
 
-      {/* Community promise (14:16193): 26px vertical padding, 8px square accents */}
+      {/* Community promise (14:16193) */}
       <div className="border-y border-border">
         <Container
           as="ul"

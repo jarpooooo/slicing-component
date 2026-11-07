@@ -2,9 +2,8 @@ import { clsx, type ClassValue } from "clsx";
 import { extendTailwindMerge } from "tailwind-merge";
 
 /**
- * tailwind-merge needs to know about the custom font-size tokens defined in
- * globals.css; otherwise it treats `text-body` and `text-fg` as the same group
- * (text color) and drops one of them.
+ * tailwind-merge has to know the custom font-size tokens from globals.css. Otherwise
+ * it puts `text-body` and `text-fg` in the same group (text color) and drops one.
  */
 const twMerge = extendTailwindMerge({
   extend: {

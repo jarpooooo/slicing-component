@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "Good things start with hello. Send GDGoC UGM a question, a collaboration idea, or an idea for the community.",
 };
 
-/** Contact page (Figma 14:16727). Navigation and Footer come from the root layout. */
+/** Contact (Figma 14:16727) */
 export default async function ContactPage() {
   const siteInfo = await getSiteInfo(); // GET /api/stats
 

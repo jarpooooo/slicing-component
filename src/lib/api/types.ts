@@ -1,9 +1,9 @@
 /**
- * Types for https://gdgoc-ugm-api.vercel.app/api, derived from real responses
- * (fetched 2026-11-06). Field names are kept exactly as the API returns them.
+ * Types for https://gdgoc-ugm-api.vercel.app/api, written from real responses
+ * (2026-11-06). Field names match the API.
  */
 
-// ---------- Envelope ----------
+// Envelope
 
 /** Every endpoint wraps its payload as `{ success: true, data, ... }`. */
 export type ApiSuccess<T> = {
@@ -25,9 +25,9 @@ export type ApiFailure = {
 
 export type ApiResponse<T> = ApiSuccess<T> | ApiFailure;
 
-// ---------- Resources ----------
+// Resources
 
-/** Known ids at time of writing; kept open (`string & {}`) so new tracks don't break typing. */
+/** Known ids. `string & {}` keeps the type open so new tracks still type-check. */
 export type TrackId = "research-discovery" | "design-creativity" | "development" | (string & {});
 
 /** GET /tracks, GET /tracks/:id */
@@ -39,8 +39,8 @@ export type Track = {
   /** Emoji, e.g. "🔍". */
   icon: string;
   /**
-   * Hex color from the API (e.g. "#4285F4"). Note: these differ slightly from the
-   * Figma tokens (Blue/500 = #4284F4, Yellow/500 = #F9AB00) — style with tokens instead.
+   * Hex color, e.g. "#4285F4". It's slightly off from the Figma tokens (Blue/500 is
+   * #4284F4, Yellow/500 is #F9AB00), so style with tokens instead.
    */
   color: string;
   skills: string[];

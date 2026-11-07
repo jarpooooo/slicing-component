@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     "Programs & learning tracks at GDGoC UGM: explore research, design, and development, the ways we learn together, and where to start.",
 };
 
-/** Overview page (Figma 14:16894). Navigation and Footer come from the root layout. */
+/** Overview (Figma 14:16894) */
 export default function OverviewPage() {
   return (
     <>

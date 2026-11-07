@@ -9,13 +9,11 @@ import { outcomesContent } from "../data";
 const listFormat = new Intl.ListFormat("en", { style: "long", type: "conjunction" });
 
 /**
- * "Track comparison" (Figma 14:17063), filled from GET /api/tracks:
- * Pathway = name, What you can practice = skills, A possible outcome = what_you_do.
+ * Track comparison (Figma 14:17063) filled from GET /api/tracks: Pathway is `name`,
+ * What you can practice is `skills`, A possible outcome is `what_you_do`.
  *
- * 1px border, 20px radius; Neutrals/300 header row (20/28px padding, 12px Medium
- * labels), body rows with a top border and 28px padding. Column widths 250 / 448 /
- * rest with 28px gaps (cell widths below include padding). Below md each row stacks
- * and repeats its column label.
+ * Column widths follow Figma (250 / 448 / rest); the widths below include padding.
+ * Below md each row stacks and repeats its column labels.
  */
 export function OutcomesTable({ labelledBy }: { labelledBy: string }) {
   const tracks = useApi("tracks", (signal) => api.getTracks({ signal }));

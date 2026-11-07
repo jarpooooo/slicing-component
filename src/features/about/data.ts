@@ -2,14 +2,12 @@ import type { BrandTone } from "@/components/ui";
 import type { AssetName } from "@/lib/assets";
 
 /*
- * About page copy — read from Figma frame "About - GDGoC UGM" (14:16510).
- *
- * Values (GET /api/values) and participation roles (GET /api/roles) are fetched at
- * runtime; this file holds the static copy around them and visual mappings by id.
- * Multi-line headings keep the explicit line breaks from Figma as arrays.
+ * About page copy (Figma 14:16510). Values and roles come from the API; this file
+ * has the copy around them and the visuals per id. Headings that break over
+ * several lines in Figma are stored as arrays.
  */
 
-// ---------- About introduction (14:16529) ----------
+// About introduction (14:16529)
 
 export const aboutHeroContent = {
   eyebrow: "About GDGoC UGM",
@@ -22,7 +20,7 @@ export const aboutHeroContent = {
   },
 } as const;
 
-// ---------- Our purpose (14:16603) ----------
+// Our purpose (14:16603)
 
 export const purposeContent = {
   eyebrow: "Why we come together",
@@ -33,7 +31,7 @@ export const purposeContent = {
   ],
 } as const;
 
-// ---------- Community values (14:16613) ----------
+// Community values (14:16613)
 
 export const valuesContent = {
   eyebrow: "What guides us",
@@ -41,9 +39,8 @@ export const valuesContent = {
 } as const;
 
 /**
- * Accent color and Figma icon per value id from GET /api/values (14:16620–14:16638).
- * The API also returns a hex color and an emoji; the design uses brand tokens and
- * line icons instead.
+ * Accent color and icon per value id (Figma 14:16620 to 14:16638). The API also
+ * sends a hex color and an emoji, but the design uses brand tokens and line icons.
  */
 export const valueVisuals: Record<string, { tone: BrandTone; icon: AssetName }> = {
   "stay-curious": { tone: "blue", icon: "iconBook" },
@@ -55,7 +52,7 @@ export const valueVisuals: Record<string, { tone: BrandTone; icon: AssetName }> 
 /** Used for values the mapping above doesn't know yet, in order. */
 export const fallbackValueTones: BrandTone[] = ["blue", "red", "yellow", "green"];
 
-// ---------- Ways to belong (14:16644) ----------
+// Ways to belong (14:16644)
 
 export const waysToBelongContent = {
   eyebrow: "People, not labels",
@@ -65,7 +62,7 @@ export const waysToBelongContent = {
   link: { label: "Let’s talk about getting involved", href: "/contact" },
 } as const;
 
-// ---------- Community commitment (14:16668) ----------
+// Community commitment (14:16668)
 
 export const commitmentContent = {
   heading: "A space to learn. A responsibility to care.",

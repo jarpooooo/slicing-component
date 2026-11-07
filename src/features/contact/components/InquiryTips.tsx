@@ -6,7 +6,7 @@ import { api, type InquiryCategory } from "@/lib/api";
 
 import { guidanceContent } from "../data";
 
-/** Splits "Question? Answer…" into a title and description. */
+/** Splits "Question? Answer..." into a title and a description. */
 const LEADING_QUESTION = /^([^.?!]+\?)\s+([\s\S]+)$/;
 
 function toTip(category: InquiryCategory) {
@@ -19,8 +19,8 @@ function toTip(category: InquiryCategory) {
 }
 
 /**
- * "Inquiry tips" (Figma 14:16844): tips 26px apart — 21px title, 16px description and a
- * divider, 10px apart. Text is the `guidance` of each GET /api/inquiry-categories item.
+ * Inquiry tips (Figma 14:16844): one per category, using its `guidance` from
+ * GET /api/inquiry-categories.
  */
 export function InquiryTips() {
   const categories = useApi("inquiry-categories", (signal) => api.getInquiryCategories({ signal }));

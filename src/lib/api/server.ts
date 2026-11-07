@@ -5,20 +5,18 @@ import { siteConfig, type NavItem } from "@/lib/site";
 import { api } from "./client";
 
 /*
- * Server-side reads for the app shell (Navigation, Footer, hero copy).
- *
- * These are cached with `use cache`, so the API text is part of the prerendered
- * static shell — no loading flash in the header or footer. If the API is
- * unreachable, the static fallback in `siteConfig` is used and the miss is cached
- * only briefly (`minutes`), so the real data comes back on its own.
+ * Server-side reads for the app shell (navigation, footer, hero copy). They're cached
+ * with `use cache`, so the text is part of the prerendered shell and the header
+ * doesn't flash. If the API is down, the fallback in `siteConfig` is used and that
+ * result is only cached for a few minutes.
  */
 
 export type SiteInfo = {
-  /** "Universitas Gadjah Mada" — GET /api/stats → university */
+  /** e.g. "Universitas Gadjah Mada", from GET /api/stats → university */
   university: string;
-  /** "Learn together. Build together." — GET /api/stats → tagline */
+  /** e.g. "Learn together. Build together.", from GET /api/stats → tagline */
   tagline: string;
-  /** "@gdgoc.ugm" — GET /api/stats → social.instagram */
+  /** e.g. "@gdgoc.ugm", from GET /api/stats → social.instagram */
   instagramHandle: string;
   /** Profile URL built from the handle. */
   instagramUrl: string;

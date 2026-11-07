@@ -12,17 +12,14 @@ import { FaqItem } from "./FaqItem";
 const INITIALLY_OPEN = 3;
 
 /**
- * Every question from GET /api/faqs as an accessible accordion, items 24px apart
- * (Figma 14:16434).
- * - Each item toggles independently. The Figma frame shows three answered
- *   questions, so the first three start open and the rest start collapsed.
- * - Arrow Up/Down move focus between questions, Home/End jump to the ends
- *   (WAI-ARIA accordion pattern).
+ * Every question from GET /api/faqs as an accordion (Figma 14:16434). Items toggle
+ * independently and the first three start open, as in Figma. Arrow Up/Down move
+ * between questions and Home/End jump to the first or last one.
  */
 export function FaqAccordion() {
   const faqs = useApi("faqs", (signal) => api.getFaqs(undefined, { signal }));
   const baseId = useId();
-  // Track explicit toggles; undefined = default (open for the first three).
+  // Toggled items by id. Anything missing uses the default (first three open).
   const [openState, setOpenState] = useState<Record<string, boolean>>({});
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {

@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 export type BrandTone = "blue" | "red" | "yellow" | "green";
 
-/** Background class per brand tone — shared by markers, dots and accents. */
+/** Background class per brand tone (markers, dots, accents). */
 export const brandToneBg: Record<BrandTone, string> = {
   blue: "bg-brand-blue",
   red: "bg-brand-red",
@@ -12,7 +12,7 @@ export const brandToneBg: Record<BrandTone, string> = {
   green: "bg-brand-green",
 };
 
-/** Light tint per brand tone — illustration panels, program icons, solution tiles. */
+/** Light tint per brand tone (illustration panels, program icons, solution tiles). */
 export const brandToneTint: Record<BrandTone, string> = {
   blue: "bg-tint-blue",
   red: "bg-tint-red",
@@ -20,11 +20,7 @@ export const brandToneTint: Record<BrandTone, string> = {
   green: "bg-tint-green",
 };
 
-/**
- * "Section label" from Figma (e.g. 14:16068): a 7px Blue/500 marker, 10px gap, then
- * a 12px Medium uppercase label in #5F6368. Every section label in the file uses the
- * same blue marker.
- */
+/** Section label (Figma 14:16068): blue marker and uppercase label. */
 export function EyebrowLabel({ className, children, ...props }: ComponentPropsWithoutRef<"p">) {
   return (
     <p

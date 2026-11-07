@@ -2,11 +2,7 @@ import { Container, EyebrowLabel } from "@/components/ui";
 
 import { contactHeroContent } from "../data";
 
-/**
- * "Contact introduction" (Figma 14:16746): 72px top / 56px bottom padding, 24px gaps —
- * section label, 72px headline ending in a link-blue "hello." and a 22px description
- * (770px wide).
- */
+/** Contact intro (Figma 14:16746). The headline ends in a blue "hello." */
 export function ContactHero() {
   return (
     <section aria-labelledby="contact-heading">

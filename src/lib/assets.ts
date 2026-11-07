@@ -1,13 +1,11 @@
 /**
- * Single source of truth for static assets in /public.
+ * Paths and sizes of the files in /public. Components only reference assets
+ * through this map, so renaming a file means changing one line here.
  *
- * Paths must match the file names on disk EXACTLY (including letter case):
- * Vercel runs on a case-sensitive filesystem, so `/icons/instagram.svg` would
- * 404 there even though it works on Windows. If a file is renamed, update it
- * here only — components reference assets through this map.
- *
- * `npm run check:assets` verifies every path below exists with the same casing.
- * width/height: an SVG's root attributes; for 2x WebP exports, half the pixel size.
+ * Paths must match the file names exactly, including case: Vercel's filesystem is
+ * case-sensitive, so `/icons/instagram.svg` would 404 there even though it works on
+ * Windows. `npm run check:assets` checks this. width/height are the SVG root
+ * attributes, or half the pixel size for 2x WebP exports.
  */
 export const assets = {
   logo: { src: "/icons/logo-gdgoc-ugm.svg", width: 346, height: 39 },

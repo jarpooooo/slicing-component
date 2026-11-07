@@ -1,9 +1,7 @@
 /**
- * Static site configuration shared by the layout, Navigation and Footer.
- *
- * Text the API provides (navigation links, university name, tagline, Instagram
- * handle) is read at render time through `src/lib/api/server.ts`; the values in
- * `nav` and `fallback` are only used when the API is unreachable.
+ * Site config for the layout, navigation and footer. Navigation links, university
+ * name, tagline and Instagram handle are read from the API (`src/lib/api/server.ts`);
+ * `nav` and `fallback` are only used when the API can't be reached.
  */
 export const siteConfig = {
   name: "GDGoC UGM",
@@ -23,7 +21,7 @@ export const siteConfig = {
   /** Academic year shown next to the community name across the design. */
   academicYear: "2026/2027",
 
-  /** Footer copy — Figma "Footer" (14:16473). */
+  /** Footer copy (Figma 14:16473) */
   footer: {
     description:
       "A student community for curious minds, shared learning, and technology with purpose.",

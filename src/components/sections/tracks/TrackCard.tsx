@@ -6,38 +6,32 @@ import { assets, type AssetName } from "@/lib/assets";
 import { cn } from "@/lib/utils";
 
 /**
- * Visual mapping per track id; all text comes from GET /api/tracks.
+ * Artwork and tint per track id. The text comes from GET /api/tracks.
  *
- * Each artwork file covers the instance's render bounds as clipped by the card in
- * Figma (measured in the Plugin API): it starts at the card's left/top edge of a
- * 400px card. Anchoring it at 50% − 200px keeps the artwork where Figma has it
- * (≈ centered) when the card is wider or narrower than 400px.
+ * Each artwork file starts at the left/top edge of a 400px card, so anchoring it at
+ * 50% - 200px keeps it where Figma has it when the card is wider or narrower.
  */
 const trackVisuals: Record<string, { image: AssetName; tint: string; position: string }> = {
   "research-discovery": {
     image: "trackResearch",
-    tint: "bg-tint-blue", // [node] 14:16238 #EAF2FF
+    tint: "bg-tint-blue",
     position: "top-0 left-[calc(50%-200px)]",
   },
   "design-creativity": {
     image: "trackDesign",
-    tint: "bg-tint-yellow", // [node] 14:16273 #FFF7DF
+    tint: "bg-tint-yellow",
     position: "top-0 left-[calc(50%-200px)]",
   },
   development: {
     image: "trackDevelopment",
-    tint: "bg-tint-green", // [node] 14:16310 #EAF5ED
+    tint: "bg-tint-green",
     position: "top-0 left-[calc(50%-200px)]",
   },
 };
 
 export const TRACK_CARD_LINK_LABEL = "Explore this track";
 
-/**
- * "Track card" (Figma 14:16237): 1px border, 24px radius, 232px tinted illustration
- * panel, then details with 28px padding and 18px gaps — theme overline, 28px name,
- * description, divider, topics and a text link.
- */
+/** Track card (Figma 14:16237) */
 export function TrackCard({ track }: { track: Track }) {
   const visual = trackVisuals[track.id];
   const image = visual ? assets[visual.image] : null;

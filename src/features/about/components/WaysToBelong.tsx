@@ -7,12 +7,7 @@ import { api } from "@/lib/api";
 
 import { waysToBelongContent } from "../data";
 
-/**
- * "Ways to belong" (Figma 14:16644): no top padding (follows the values section),
- * 88px bottom; 400px introduction (22px gaps) and the participation roles 96px apart.
- * Roles come from GET /api/roles. Each role: 28px title, 17px description, divider,
- * 14px apart; roles 28px apart, followed by the text link.
- */
+/** Ways to belong (Figma 14:16644). Roles come from GET /api/roles. */
 export function WaysToBelong() {
   const roles = useApi("roles", (signal) => api.getRoles({ signal }));
 

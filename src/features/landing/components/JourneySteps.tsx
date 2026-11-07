@@ -5,10 +5,8 @@ import { useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
 
 /**
- * "Participation journey" (Figma 14:16403): equal columns, 40px apart; each step is a
- * 44px Bold link-blue numeral, divider, 25px heading and description, 20px apart.
- * Steps come from GET /api/journey (4 steps; Figma shows 3), so the grid is
- * 2 columns on tablet and 4 on desktop.
+ * Journey steps from GET /api/journey (Figma 14:16403). The API has four steps and
+ * Figma shows three, so the grid is two columns on tablet and four on desktop.
  */
 export function JourneySteps() {
   const journey = useApi("journey", (signal) => api.getJourney({ signal }));
