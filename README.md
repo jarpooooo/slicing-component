@@ -1,5 +1,9 @@
 # Website Open Recruitment GDGoC UGM
 
+link video : https://drive.google.com/file/d/12yNwGMVVrRxE6zeICVm9mKJePBV7YT65/view?usp=sharing
+link vercel : https://slicing-component.vercel.app/
+
+
 Proyek ini adalah tugas front-end untuk Google Developer Groups on Campus Universitas Gadjah Mada. Isinya slicing desain Figma GDGoC UGM menjadi web app yang responsif, lalu mengambil datanya dari [REST API GDGoC UGM](https://gdgoc-ugm-api.vercel.app/api).
 
 - Desain: file Figma `3ZBkhvV8tXj90xxro7LhTC`, halaman "Design System" (desktop 1440px)
