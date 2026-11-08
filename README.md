@@ -139,17 +139,3 @@ Base URL: `https://gdgoc-ugm-api.vercel.app/api` (bisa diganti lewat `NEXT_PUBLI
 | `GET /inquiry-categories` | `getInquiryCategories()`   | Contact                 |
 | `GET /stats`              | `getSiteInfo()` (cached)   | Layout, semua halaman   |
 | `GET /navigation`         | `getNavigation()` (cached) | Layout                  |
-
-## Tantangan tambahan
-
-TODO: tulis tantangan opsional yang dikerjakan, contohnya:
-
-- [ ] TODO
-- [ ] TODO
-
-## Kekurangan dan TODO
-
-- [ ] Semua teks yang tersedia di API diambil dari API. Di beberapa tempat isinya berbeda dengan teks placeholder di Figma (misalnya API mengembalikan 4 format, sedangkan Figma hanya menampilkan 3).
-- [ ] Gambar puzzle kaca diekspor sebagai SVG. Efek background blur "glass" dari Figma tidak bisa dibuat di SVG, jadi pinggiran buramnya sedikit berbeda dari Figma.
-- [ ] API belum punya endpoint untuk pesan kontak. Form Contact hanya memvalidasi di sisi client, lalu memberi tahu bahwa pengiriman online belum tersedia dan mengarahkan ke Instagram.
-- [ ] Deploy ke Vercel dan tambahkan URL demo.
