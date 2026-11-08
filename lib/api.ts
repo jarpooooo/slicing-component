@@ -8,6 +8,7 @@ import type {
   ContributionRole,
   Faq,
   InquiryCategory,
+  InquiryCategoryId,
   JourneyStep,
   LearningFormat,
   NavigationLink,
@@ -39,7 +40,11 @@ async function get<T>(path: string): Promise<T> {
   }
 
   const body = (await response.json().catch(() => null)) as ApiResponse<T> | null;
-  if (!body) throw new ApiError(`Unexpected response (HTTP ${response.status}).`, response.status);
+  if (!response.ok || !body) {
+    const errorMsg =
+      body && !body.success ? body.error : `Unexpected response (HTTP ${response.status}).`;
+    throw new ApiError(errorMsg, response.status);
+  }
   if (!body.success) throw new ApiError(body.error, response.status);
   return body.data;
 }
@@ -49,7 +54,8 @@ async function get<T>(path: string): Promise<T> {
 export const getTracks = () => get<Track[]>("/tracks");
 export const getFormats = () => get<LearningFormat[]>("/formats");
 export const getJourney = () => get<JourneyStep[]>("/journey");
-export const getFaqs = () => get<Faq[]>("/faqs");
+export const getFaqs = (category?: InquiryCategoryId) =>
+  get<Faq[]>(`/faqs${category ? `?category=${encodeURIComponent(category)}` : ""}`);
 export const getValues = () => get<CommunityValue[]>("/values");
 export const getRoles = () => get<ContributionRole[]>("/roles");
 export const getInquiryCategories = () => get<InquiryCategory[]>("/inquiry-categories");

@@ -1,4 +1,3 @@
-
 export const siteConfig = {
   name: "GDGoC UGM",
   fullName: "Google Developer Groups on Campus Universitas Gadjah Mada",
@@ -11,7 +10,7 @@ export const siteConfig = {
     { label: "Overview", href: "/overview" },
     { label: "Contact", href: "/contact" },
   ],
-  
+
   navAction: { label: "Find your track", href: "/overview" },
 
   /** Academic year shown next to the community name across the design. */

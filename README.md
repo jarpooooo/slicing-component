@@ -1,95 +1,92 @@
-# GDGoC UGM — Open Recruitment Website
+# Website Open Recruitment GDGoC UGM
 
-Front-end task for **Google Developer Groups on Campus Universitas Gadjah Mada**: slice the
-GDGoC UGM Figma design into a responsive web app and consume the
-[GDGoC UGM REST API](https://gdgoc-ugm-api.vercel.app/api).
+Proyek ini adalah tugas front-end untuk Google Developer Groups on Campus Universitas Gadjah Mada. Isinya slicing desain Figma GDGoC UGM menjadi web app yang responsif, lalu mengambil datanya dari [REST API GDGoC UGM](https://gdgoc-ugm-api.vercel.app/api).
 
-- **Design:** Figma file `3ZBkhvV8tXj90xxro7LhTC`, page "Design System" (desktop 1440px)
-- **Live demo:** TODO (Vercel URL)
-- **Pages implemented:** Landing, About, Overview and Contact — static copy taken verbatim from Figma
+- Desain: file Figma `3ZBkhvV8tXj90xxro7LhTC`, halaman "Design System" (desktop 1440px)
+- Demo: TODO (URL Vercel)
+- Halaman yang sudah dibuat: Landing, About, Overview, dan Contact. Teks statisnya diambil persis dari Figma.
 
-| Page     | Route       | Figma node | Status   |
-| -------- | ----------- | ---------- | -------- |
-| Landing  | `/`         | 14:16047   | ✅ built |
-| About    | `/about`    | 14:16510   | ✅ built |
-| Overview | `/overview` | 14:16894   | ✅ built |
-| Contact  | `/contact`  | 14:16727   | ✅ built |
+| Halaman  | Route       | Node Figma | Status  |
+| -------- | ----------- | ---------- | ------- |
+| Landing  | `/`         | 14:16047   | Selesai |
+| About    | `/about`    | 14:16510   | Selesai |
+| Overview | `/overview` | 14:16894   | Selesai |
+| Contact  | `/contact`  | 14:16727   | Selesai |
 
-## Tech stack
+## Teknologi
 
-- [Next.js 16](https://nextjs.org) (App Router, Turbopack, Cache Components) + React 19
+- [Next.js 16](https://nextjs.org) (App Router, Turbopack, Cache Components) dan React 19
 - TypeScript (strict mode)
-- Tailwind CSS v4 (CSS-first `@theme` design tokens)
-- [lucide-react](https://lucide.dev) for UI icons
-- `clsx` + `tailwind-merge` via a `cn()` helper
-- ESLint (`eslint-config-next`) + Prettier (`prettier-plugin-tailwindcss`)
+- Tailwind CSS v4, dengan design token di CSS lewat `@theme`
+- [lucide-react](https://lucide.dev) untuk ikon
+- `clsx` dan `tailwind-merge`, digabung dalam helper `cn()`
+- ESLint (`eslint-config-next`) dan Prettier (`prettier-plugin-tailwindcss`)
 
-## Getting started
+## Cara menjalankan
 
-Requirements: Node.js 20+ and npm.
+Butuh Node.js 20 ke atas dan npm.
 
 ```bash
 npm install
-cp .env.example .env.local   # optional — the public API URL is used by default
+cp .env.example .env.local   # opsional, URL API publik dipakai secara default
 npm run dev                  # http://localhost:3000
 ```
 
-> The build downloads the **Google Sans** font from Google Fonts via `next/font`, so
-> `npm run build` needs internet access.
+> Saat build, font Google Sans diunduh dari Google Fonts lewat `next/font`. Jadi `npm run build` perlu koneksi internet.
 
-### Scripts
+### Script
 
-| Script                 | Description                                                                 |
-| ---------------------- | --------------------------------------------------------------------------- |
-| `npm run dev`          | Start the dev server                                                        |
-| `npm run build`        | Production build                                                            |
-| `npm run start`        | Serve the production build                                                  |
-| `npm run lint`         | ESLint                                                                      |
-| `npm run lint:fix`     | ESLint with autofix                                                         |
-| `npm run format`       | Format everything with Prettier                                             |
-| `npm run format:check` | Check formatting (CI)                                                       |
-| `npm run typecheck`    | Generate Next.js route types, then `tsc --noEmit`                           |
-| `npm run check:assets` | Verify files in `lib/assets.ts` exist with exact casing (runs before build) |
+| Script                 | Fungsi                                                                                    |
+| ---------------------- | ----------------------------------------------------------------------------------------- |
+| `npm run dev`          | Menjalankan dev server                                                                    |
+| `npm run build`        | Build untuk production                                                                    |
+| `npm run start`        | Menjalankan hasil build production                                                        |
+| `npm run lint`         | Cek kode dengan ESLint                                                                    |
+| `npm run lint:fix`     | ESLint sekaligus memperbaiki otomatis                                                     |
+| `npm run format`       | Merapikan semua file dengan Prettier                                                      |
+| `npm run format:check` | Cek format saja (untuk CI)                                                                |
+| `npm run typecheck`    | Membuat type route Next.js, lalu menjalankan `tsc --noEmit`                               |
+| `npm run check:assets` | Memastikan file di `lib/assets.ts` ada dan huruf besar-kecilnya sama (jalan sebelum build) |
 
-### Environment variables
+### Environment variable
 
-| Name                  | Default                                | Description               |
-| --------------------- | -------------------------------------- | ------------------------- |
-| `NEXT_PUBLIC_API_URL` | `https://gdgoc-ugm-api.vercel.app/api` | Base URL of the REST API. |
+| Nama                  | Default                                | Keterangan          |
+| --------------------- | -------------------------------------- | ------------------- |
+| `NEXT_PUBLIC_API_URL` | `https://gdgoc-ugm-api.vercel.app/api` | Base URL REST API.  |
 
-## Project structure
+## Struktur folder
 
 ```
-app/                     # Routes. Each page.tsx fetches its data and passes it down.
-  layout.tsx             # Fonts, metadata, Navigation + Footer
+app/                     # Route. Tiap page.tsx mengambil datanya sendiri lalu meneruskannya ke komponen.
+  layout.tsx             # Font, metadata, Navigation dan Footer
   page.tsx               # Landing (/)
   about/page.tsx
   overview/page.tsx
   contact/page.tsx
-  loading.tsx            # Shown while a page is fetching
-  error.tsx              # Shown when a fetch fails, with a "Try again" button
-  globals.css            # Tailwind + design tokens (@theme)
+  loading.tsx            # Tampil saat halaman sedang mengambil data
+  error.tsx              # Tampil kalau fetch gagal, ada tombol "Try again"
+  globals.css            # Tailwind dan design token (@theme)
 components/
   layout/                # Navigation, Footer
-  landing/               # Sections of the Landing page, in page order
-  about/                 # Sections of the About page
-  overview/              # Sections of the Overview page
-  contact/               # Sections of the Contact page (+ the contact form)
-  ui/                    # Shared pieces: Button, Card, Container, EmptyState, TrackCard, ...
+  landing/               # Section halaman Landing, urut sesuai halaman
+  about/                 # Section halaman About
+  overview/              # Section halaman Overview
+  contact/               # Section halaman Contact (termasuk form kontak)
+  ui/                    # Komponen bersama: Button, Card, Container, EmptyState, TrackCard, ...
 lib/
-  api.ts                 # One function per API endpoint
-  types.ts               # Types of the API responses
-  site.ts                # Site name, nav links, footer copy
-  assets.ts              # Paths and sizes of the files in /public
-  brand.ts               # Brand color helpers (blue/red/yellow/green)
-  utils.ts               # cn() and small helpers
+  api.ts                 # Satu fungsi untuk tiap endpoint API
+  types.ts               # Type untuk respons API
+  site.ts                # Nama situs, link navigasi, teks footer
+  assets.ts              # Path dan ukuran file di /public
+  brand.ts               # Helper warna brand (biru/merah/kuning/hijau)
+  utils.ts               # cn() dan helper kecil lainnya
 public/
-  icons/ images/         # Assets exported from Figma (see public/ASSETS.md)
+  icons/ images/         # Aset hasil export dari Figma (lihat public/ASSETS.md)
 ```
 
-## How data flows
+## Alur data
 
-Every page follows the same pattern: `page.tsx` fetches, components display.
+Semua halaman memakai pola yang sama: `page.tsx` mengambil data, komponen menampilkannya.
 
 ```tsx
 // app/about/page.tsx
@@ -109,61 +106,46 @@ export default async function AboutPage() {
 }
 ```
 
-- Components get API data through props and never fetch on their own, so reading a `page.tsx`
-  tells you which data each section uses.
-- Loading: while the page fetches, Next.js shows `app/loading.tsx` (a skeleton). The header and
-  footer stay visible.
-- Error: if a request fails, `lib/api.ts` throws an `ApiError` and `app/error.tsx` shows a message
-  with a "Try again" button that refetches the page.
-- Empty: each list checks its own array (`tracks.length === 0`) and shows `EmptyState`.
-- The navigation links and community facts (university, tagline, Instagram) are fetched in
-  `app/layout.tsx` with `"use cache"`, so the header and footer are part of the static page. If
-  the API is down they fall back to the values in `lib/site.ts`.
-- Static copy from the design is written directly in each component. Per-item details the API has
-  no field for (icons, colors) are a constant at the top of the component file.
+- Komponen menerima data API lewat props dan tidak pernah fetch sendiri. Dengan membaca `page.tsx`, kamu langsung tahu data apa yang dipakai tiap section.
+- Loading: selama halaman mengambil data, Next.js menampilkan `app/loading.tsx` (skeleton). Header dan footer tetap terlihat.
+- Error: kalau request gagal, `lib/api.ts` melempar `ApiError`, lalu `app/error.tsx` menampilkan pesan dan tombol "Try again" untuk memuat ulang halaman.
+- Data kosong: tiap list mengecek array-nya sendiri (`tracks.length === 0`) dan menampilkan `EmptyState`.
+- Link navigasi dan info komunitas (universitas, tagline, Instagram) diambil di `app/layout.tsx` dengan `"use cache"`, jadi header dan footer ikut menjadi bagian halaman statis. Kalau API mati, nilainya diambil dari `lib/site.ts`.
+- Teks statis dari desain ditulis langsung di komponen. Detail yang tidak ada di API (ikon, warna) disimpan sebagai konstanta di bagian atas file komponen.
 
-## Architecture decisions
+## Keputusan arsitektur
 
-- Design tokens live in CSS (`app/globals.css`). Tailwind v4's `@theme` turns every token into a
-  utility (`bg-primary`, `text-fg-muted`, `rounded-card`, ...). The default Tailwind palette and
-  radius scale are reset, so only Figma tokens can be used and components contain no raw hex
-  values.
-- Semantic color aliases (`surface`, `fg`, `fg-muted`, `border`, `primary`, `link`, `brand-*`) sit
-  on top of the raw palette, so components describe intent rather than shades.
-- Breakpoints: the design is desktop 1440px, styles are written mobile-first. `sm` 640, `md` 768
-  (tablet), `lg` 1024 (desktop), `xl` 1440 (Figma frame width).
-- The API returns colors such as `#4285F4` that differ slightly from the Figma tokens (`#4284F4`),
-  so colors are mapped to tokens by id instead of taken from the API.
+- Design token disimpan di CSS (`app/globals.css`). `@theme` di Tailwind v4 mengubah setiap token menjadi utility class (`bg-primary`, `text-fg-muted`, `rounded-card`, ...). Palet warna dan skala radius bawaan Tailwind di-reset, jadi hanya token dari Figma yang bisa dipakai dan tidak ada nilai hex mentah di komponen.
+- Ada alias warna semantik (`surface`, `fg`, `fg-muted`, `border`, `primary`, `link`, `brand-*`) di atas palet dasar. Komponen cukup menyebut fungsi warnanya, bukan kode warnanya.
+- Breakpoint: desainnya untuk desktop 1440px, tapi style ditulis mobile-first. `sm` 640, `md` 768 (tablet), `lg` 1024 (desktop), `xl` 1440 (lebar frame Figma).
+- Warna dari API, misalnya `#4285F4`, sedikit berbeda dari token Figma (`#4284F4`). Karena itu warna dipetakan ke token berdasarkan id, tidak diambil langsung dari API.
 
 ## API
 
-Base URL: `https://gdgoc-ugm-api.vercel.app/api` (override with `NEXT_PUBLIC_API_URL`)
+Base URL: `https://gdgoc-ugm-api.vercel.app/api` (bisa diganti lewat `NEXT_PUBLIC_API_URL`)
 
-| Endpoint                  | Function in `lib/api.ts`   | Used on           |
-| ------------------------- | -------------------------- | ----------------- |
-| `GET /tracks`             | `getTracks()`              | Landing, Overview |
-| `GET /formats`            | `getFormats()`             | Landing, Overview |
-| `GET /journey`            | `getJourney()`             | Landing, Overview |
-| `GET /faqs`               | `getFaqs()`                | Landing           |
-| `GET /values`             | `getValues()`              | About             |
-| `GET /roles`              | `getRoles()`               | About             |
-| `GET /inquiry-categories` | `getInquiryCategories()`   | Contact           |
-| `GET /stats`              | `getSiteInfo()` (cached)   | Layout, all pages |
-| `GET /navigation`         | `getNavigation()` (cached) | Layout            |
+| Endpoint                  | Fungsi di `lib/api.ts`     | Dipakai di              |
+| ------------------------- | -------------------------- | ----------------------- |
+| `GET /tracks`             | `getTracks()`              | Landing, Overview       |
+| `GET /formats`            | `getFormats()`             | Landing, Overview       |
+| `GET /journey`            | `getJourney()`             | Landing, Overview       |
+| `GET /faqs`               | `getFaqs()`                | Landing                 |
+| `GET /values`             | `getValues()`              | About                   |
+| `GET /roles`              | `getRoles()`               | About                   |
+| `GET /inquiry-categories` | `getInquiryCategories()`   | Contact                 |
+| `GET /stats`              | `getSiteInfo()` (cached)   | Layout, semua halaman   |
+| `GET /navigation`         | `getNavigation()` (cached) | Layout                  |
 
-## Additional challenges
+## Tantangan tambahan
 
-TODO — list the optional challenges attempted, e.g.:
+TODO: tulis tantangan opsional yang dikerjakan, contohnya:
 
 - [ ] TODO
 - [ ] TODO
 
-## Known gaps / TODO
+## Kekurangan dan TODO
 
-- [ ] Every text the API provides is rendered from the API; it differs from the Figma
-      placeholder copy in places (e.g. the API returns 4 formats where Figma shows 3).
-- [ ] The glass puzzle artworks are SVG exports; Figma's background-blur "glass" can't be
-      expressed in SVG, so their frosted rims render slightly differently than in Figma.
-- [ ] The API has no endpoint for contact messages, so the Contact form validates on the client
-      and then says plainly that online sending isn't available yet (pointing to Instagram).
-- [ ] Deploy to Vercel and add the live URL.
+- [ ] Semua teks yang tersedia di API diambil dari API. Di beberapa tempat isinya berbeda dengan teks placeholder di Figma (misalnya API mengembalikan 4 format, sedangkan Figma hanya menampilkan 3).
+- [ ] Gambar puzzle kaca diekspor sebagai SVG. Efek background blur "glass" dari Figma tidak bisa dibuat di SVG, jadi pinggiran buramnya sedikit berbeda dari Figma.
+- [ ] API belum punya endpoint untuk pesan kontak. Form Contact hanya memvalidasi di sisi client, lalu memberi tahu bahwa pengiriman online belum tersedia dan mengarahkan ke Instagram.
+- [ ] Deploy ke Vercel dan tambahkan URL demo.
