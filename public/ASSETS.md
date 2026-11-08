@@ -8,7 +8,7 @@ No placeholders are generated.
 ## How assets are referenced
 
 Components never hard-code asset paths. Every file is registered once in
-[`src/lib/assets.ts`](../src/lib/assets.ts) with its path and intrinsic size:
+[`lib/assets.ts`](../lib/assets.ts) with its path and intrinsic size:
 
 ```tsx
 import { assets } from "@/lib/assets";
@@ -16,7 +16,7 @@ import { assets } from "@/lib/assets";
 <Image {...assets.logo} alt="GDGoC UGM" />;
 ```
 
-**Renaming or adding a file:** update `src/lib/assets.ts`, then run
+**Renaming or adding a file:** update `lib/assets.ts`, then run
 
 ```bash
 npm run check:assets

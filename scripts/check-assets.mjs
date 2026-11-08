@@ -1,11 +1,11 @@
-// Checks that every asset in src/lib/assets.ts exists in /public with the same
+// Checks that every asset in lib/assets.ts exists in /public with the same
 // letter case (Vercel's filesystem is case-sensitive) and that its width/height
 // match the file. Also warns about files that aren't registered yet.
 import { readFileSync, readdirSync } from "node:fs";
 import { dirname, join, basename } from "node:path";
 
 const root = process.cwd();
-const source = readFileSync(join(root, "src/lib/assets.ts"), "utf8");
+const source = readFileSync(join(root, "lib/assets.ts"), "utf8");
 const entries = [
   ...source.matchAll(/(\w+):\s*\{\s*src:\s*"([^"]+)",\s*width:\s*(\d+),\s*height:\s*(\d+)\s*\}/g),
 ].map(([, name, src, width, height]) => ({ name, src, width: +width, height: +height }));
@@ -80,7 +80,7 @@ for (const folder of ["icons", "images"]) {
   for (const f of readdirSync(join(root, "public", folder))) {
     if (f.startsWith(".")) continue;
     if (!registered.has(`/${folder}/${f}`))
-      console.warn(`! /${folder}/${f} is not registered in src/lib/assets.ts`);
+      console.warn(`! /${folder}/${f} is not registered in lib/assets.ts`);
   }
 }
 

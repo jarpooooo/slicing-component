@@ -39,17 +39,17 @@ npm run dev                  # http://localhost:3000
 
 ### Scripts
 
-| Script                 | Description                                                                     |
-| ---------------------- | ------------------------------------------------------------------------------- |
-| `npm run dev`          | Start the dev server                                                            |
-| `npm run build`        | Production build                                                                |
-| `npm run start`        | Serve the production build                                                      |
-| `npm run lint`         | ESLint                                                                          |
-| `npm run lint:fix`     | ESLint with autofix                                                             |
-| `npm run format`       | Format everything with Prettier                                                 |
-| `npm run format:check` | Check formatting (CI)                                                           |
-| `npm run typecheck`    | Generate Next.js route types, then `tsc --noEmit`                               |
-| `npm run check:assets` | Verify files in `src/lib/assets.ts` exist with exact casing (runs before build) |
+| Script                 | Description                                                                 |
+| ---------------------- | --------------------------------------------------------------------------- |
+| `npm run dev`          | Start the dev server                                                        |
+| `npm run build`        | Production build                                                            |
+| `npm run start`        | Serve the production build                                                  |
+| `npm run lint`         | ESLint                                                                      |
+| `npm run lint:fix`     | ESLint with autofix                                                         |
+| `npm run format`       | Format everything with Prettier                                             |
+| `npm run format:check` | Check formatting (CI)                                                       |
+| `npm run typecheck`    | Generate Next.js route types, then `tsc --noEmit`                           |
+| `npm run check:assets` | Verify files in `lib/assets.ts` exist with exact casing (runs before build) |
 
 ### Environment variables
 
@@ -60,85 +60,96 @@ npm run dev                  # http://localhost:3000
 ## Project structure
 
 ```
-src/
-  app/                  # Routes (App Router)
-    layout.tsx          # Root layout: font, metadata, Navigation + Footer
-    page.tsx            # Landing  (/)
-    about/ overview/ contact/
-    error.tsx           # Route error boundary (retry)
-    loading.tsx         # Route loading UI
-    globals.css         # Tailwind import + design tokens (@theme)
-  components/
-    ui/                 # Design-system primitives: Button, Card, Chip, Container, EyebrowLabel, Section
-    layout/             # Navigation, Footer
-    sections/           # Cross-page sections (CommunityInvitation)
-    states/             # LoadingSkeleton, ErrorState, EmptyState, AsyncContent
-  features/             # Page-specific sections + hooks, one folder per page
-  hooks/                # Shared hooks (useApi)
-  lib/
-    api/                # Typed API client + response types
-    assets.ts           # Registry of /public assets (paths + sizes)
-    site.ts             # Site config (name, nav links, metadata)
-    utils.ts            # cn() helper
+app/                     # Routes. Each page.tsx fetches its data and passes it down.
+  layout.tsx             # Fonts, metadata, Navigation + Footer
+  page.tsx               # Landing (/)
+  about/page.tsx
+  overview/page.tsx
+  contact/page.tsx
+  loading.tsx            # Shown while a page is fetching
+  error.tsx              # Shown when a fetch fails, with a "Try again" button
+  globals.css            # Tailwind + design tokens (@theme)
+components/
+  layout/                # Navigation, Footer
+  landing/               # Sections of the Landing page, in page order
+  about/                 # Sections of the About page
+  overview/              # Sections of the Overview page
+  contact/               # Sections of the Contact page (+ the contact form)
+  ui/                    # Shared pieces: Button, Card, Container, EmptyState, TrackCard, ...
+lib/
+  api.ts                 # One function per API endpoint
+  types.ts               # Types of the API responses
+  site.ts                # Site name, nav links, footer copy
+  assets.ts              # Paths and sizes of the files in /public
+  brand.ts               # Brand color helpers (blue/red/yellow/green)
+  utils.ts               # cn() and small helpers
 public/
-  icons/ images/        # Assets exported from Figma — see public/ASSETS.md
+  icons/ images/         # Assets exported from Figma (see public/ASSETS.md)
 ```
+
+## How data flows
+
+Every page follows the same pattern: `page.tsx` fetches, components display.
+
+```tsx
+// app/about/page.tsx
+export default async function AboutPage() {
+  const [siteInfo, values, roles] = await Promise.all([getSiteInfo(), getValues(), getRoles()]);
+
+  return (
+    <>
+      <AboutHero university={siteInfo.university} />
+      <OurPurpose />
+      <CommunityValues values={values} />
+      <WaysToBelong roles={roles} />
+      <CommunityCommitment />
+      <CommunityInvitation />
+    </>
+  );
+}
+```
+
+- Components get API data through props and never fetch on their own, so reading a `page.tsx`
+  tells you which data each section uses.
+- Loading: while the page fetches, Next.js shows `app/loading.tsx` (a skeleton). The header and
+  footer stay visible.
+- Error: if a request fails, `lib/api.ts` throws an `ApiError` and `app/error.tsx` shows a message
+  with a "Try again" button that refetches the page.
+- Empty: each list checks its own array (`tracks.length === 0`) and shows `EmptyState`.
+- The navigation links and community facts (university, tagline, Instagram) are fetched in
+  `app/layout.tsx` with `"use cache"`, so the header and footer are part of the static page. If
+  the API is down they fall back to the values in `lib/site.ts`.
+- Static copy from the design is written directly in each component. Per-item details the API has
+  no field for (icons, colors) are a constant at the top of the component file.
 
 ## Architecture decisions
 
-- **Design tokens live in CSS (`src/app/globals.css`).** Tailwind v4's `@theme` turns every token
-  into a utility (`bg-primary`, `text-fg-muted`, `rounded-card`, `text-heading-sm`, …). The default
-  Tailwind palette and radius scale are reset, so only tokens from Figma can be used, and no raw
-  hex values appear in components. Each token is tagged with where it came from (Figma variable
-  vs. value on a Figma node).
-- **Semantic color aliases** (`surface`, `fg`, `fg-muted`, `border`, `primary`, `link`,
-  `brand-*`) sit on top of the raw palette (`blue-500`, `neutral-700`, …), so components describe
-  intent instead of specific shades.
-- **Breakpoints:** the design is desktop 1440px, styles are written mobile-first. `sm` 640,
-  `md` 768 (tablet), `lg` 1024 (desktop), `xl` 1440 (Figma frame width).
-- **Typed API layer (`src/lib/api`).** Types are derived from real API responses. Every
-  request unwraps the `{ success, data }` envelope and throws a typed `ApiError` for network
-  errors, non-2xx responses and `{ success: false }` bodies.
-- **One async status per request.** `useApi` returns `loading | error | success | empty` plus
-  `retry()`, and `AsyncContent` maps each status to `LoadingSkeleton` / `ErrorState` /
-  `EmptyState`. Sections only describe the success case.
-- **API text in the app shell is read on the server.** Navigation links (`/navigation`) and
-  community facts (`/stats`: university, tagline, Instagram handle) are fetched in
-  `src/lib/api/server.ts` with `"use cache"` + `cacheLife("hours")`, so they are part of the
-  prerendered static shell (no loading flash in the header/footer). If the API is down, the
-  fallbacks in `src/lib/site.ts` are used and cached only for `minutes`.
-- **Lists are fetched on the client with explicit states.** Tracks, formats, journey, FAQ,
-  values, roles and inquiry categories use `useApi` + `AsyncContent`, so every list has a
-  loading skeleton, an error state with retry and an empty state.
-- **API colors are not used for styling.** The API returns colors such as `#4285F4` / `#FBBC05`
-  that differ slightly from the Figma tokens (`#4284F4` / `#F9AB00`), so track colors are mapped
-  to tokens by id.
+- Design tokens live in CSS (`app/globals.css`). Tailwind v4's `@theme` turns every token into a
+  utility (`bg-primary`, `text-fg-muted`, `rounded-card`, ...). The default Tailwind palette and
+  radius scale are reset, so only Figma tokens can be used and components contain no raw hex
+  values.
+- Semantic color aliases (`surface`, `fg`, `fg-muted`, `border`, `primary`, `link`, `brand-*`) sit
+  on top of the raw palette, so components describe intent rather than shades.
+- Breakpoints: the design is desktop 1440px, styles are written mobile-first. `sm` 640, `md` 768
+  (tablet), `lg` 1024 (desktop), `xl` 1440 (Figma frame width).
+- The API returns colors such as `#4285F4` that differ slightly from the Figma tokens (`#4284F4`),
+  so colors are mapped to tokens by id instead of taken from the API.
 
 ## API
 
-Base URL: `https://gdgoc-ugm-api.vercel.app/api`
+Base URL: `https://gdgoc-ugm-api.vercel.app/api` (override with `NEXT_PUBLIC_API_URL`)
 
-| Endpoint                  | Client function              |
-| ------------------------- | ---------------------------- |
-| `GET /tracks`             | `api.getTracks()`            |
-| `GET /tracks/:id`         | `api.getTrack(id)`           |
-| `GET /values`             | `api.getValues()`            |
-| `GET /formats`            | `api.getFormats()`           |
-| `GET /journey`            | `api.getJourney()`           |
-| `GET /roles`              | `api.getRoles()`             |
-| `GET /inquiry-categories` | `api.getInquiryCategories()` |
-| `GET /faqs?category=`     | `api.getFaqs(category?)`     |
-| `GET /stats`              | `api.getStats()`             |
-| `GET /navigation`         | `api.getNavigation()`        |
-
-```tsx
-"use client";
-const tracks = useApi("tracks", (signal) => api.getTracks({ signal }));
-
-<AsyncContent state={tracks} loading={<LoadingSkeleton variant="cards" />}>
-  {(data) => data.map((track) => <TrackCard key={track.id} track={track} />)}
-</AsyncContent>;
-```
+| Endpoint                  | Function in `lib/api.ts`   | Used on           |
+| ------------------------- | -------------------------- | ----------------- |
+| `GET /tracks`             | `getTracks()`              | Landing, Overview |
+| `GET /formats`            | `getFormats()`             | Landing, Overview |
+| `GET /journey`            | `getJourney()`             | Landing, Overview |
+| `GET /faqs`               | `getFaqs()`                | Landing           |
+| `GET /values`             | `getValues()`              | About             |
+| `GET /roles`              | `getRoles()`               | About             |
+| `GET /inquiry-categories` | `getInquiryCategories()`   | Contact           |
+| `GET /stats`              | `getSiteInfo()` (cached)   | Layout, all pages |
+| `GET /navigation`         | `getNavigation()` (cached) | Layout            |
 
 ## Additional challenges
 
