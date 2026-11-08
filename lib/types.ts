@@ -95,7 +95,6 @@ export type InquiryCategory = {
   id: InquiryCategoryId;
   label: string;
   description: string;
-  /** Short glyph, e.g. "↗", "+", "◇", "?". */
   icon: string;
   guidance: string;
 };

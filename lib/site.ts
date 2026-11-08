@@ -1,8 +1,4 @@
-/**
- * Site config for the layout, navigation and footer. Navigation links, university
- * name, tagline and Instagram handle come from the API (`getNavigation` and
- * `getSiteInfo` in lib/api.ts); `nav` and `fallback` are only used if it's down.
- */
+
 export const siteConfig = {
   name: "GDGoC UGM",
   fullName: "Google Developer Groups on Campus Universitas Gadjah Mada",
@@ -15,13 +11,12 @@ export const siteConfig = {
     { label: "Overview", href: "/overview" },
     { label: "Contact", href: "/contact" },
   ],
-  /** Primary navigation action ("Find your track", 14:16061). */
+  
   navAction: { label: "Find your track", href: "/overview" },
 
   /** Academic year shown next to the community name across the design. */
   academicYear: "2026/2027",
 
-  /** Footer copy (Figma 14:16473) */
   footer: {
     description:
       "A student community for curious minds, shared learning, and technology with purpose.",

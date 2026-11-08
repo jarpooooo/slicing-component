@@ -29,8 +29,6 @@ export const assets = {
   // Illustrations
   sparkGreen: { src: "/images/spark-green.svg", width: 100, height: 100 },
   sparkYellow: { src: "/icons/spark-yellow.svg", width: 72, height: 72 },
-  // Glass tile panels use background blur, which SVG can't express, so they are
-  // exported as 2x raster (WebP). width/height are the CSS size; the file is 2x.
   heroGlassBg: { src: "/images/hero-glass-bg.webp", width: 620, height: 530 },
   heroResearch: { src: "/images/hero-research.svg", width: 384, height: 421 },
   heroDevelopment: { src: "/images/hero-development.svg", width: 650, height: 696 },
